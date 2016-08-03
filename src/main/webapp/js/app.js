@@ -21,15 +21,11 @@ $(function(){
 	/* register functions */
 	$("#batSignIn").on("click", batHandleSignIn);
 
-
-
-
-
 	/* functions */
 	function batHandleSignIn() {
 		var id = $("#userId").val();
 		var pwd = $("#userPasssword").val();
-		
+		//check for empty values
 		$.ajax({
 		  method: "POST",
 		  url: "../BatAcademy/signin",
