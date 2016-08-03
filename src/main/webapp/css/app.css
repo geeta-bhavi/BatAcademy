@@ -1,0 +1,99 @@
+/* medium screens */
+@media only screen and (min-width: 40.063em) { 
+    section.landing h1.headingBatAcademy { background: url(../images/bat.png) no-repeat 10% 100%; }
+
+} 
+/* large screens */
+@media only screen and (min-width: 64.063em) { 
+    section.landing h1.headingBatAcademy { background: url(../images/bat.png) no-repeat 10% 100%; }
+}
+
+/* XL screens */
+@media only screen and (min-width: 90.063em)  {
+    section.landing h1.headingBatAcademy { background: url(../images/bat.png) no-repeat 10% 100%; }
+}
+
+/* XXLarge screens */
+@media only screen and (min-width: 120.063em) { 
+    section.landing h1.headingBatAcademy { background: url(../images/bat.png) no-repeat 10% 100%; }
+} 
+
+/* all screens */
+body {background: #4f5457; color:#fff;}
+label {color:#fff;}
+/* custom fonts */
+@font-face {
+    font-family: dkc-forever;
+    src: url(../fonts/dkc-forever.ttf);
+}
+
+/* Footer */
+footer.mainFooter {
+    background: #666;
+    font-size: 0.75rem;
+    max-width: 100%;
+    padding: 0.625rem 0;
+}
+footer.mainFooter ul {
+    list-style: none;
+    margin-left: 0;
+}
+footer.mainFooter .contact i {
+    position: absolute;
+    background-color: #33383b;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 50%;
+    line-height: 1;
+    margin: 0 0 0 -4rem;
+    vertical-align: middle;
+    padding: .25em .45em;
+}
+
+footer.mainFooter .about {
+    color: #92999f;
+    font-size: 0.875rem;
+    margin: 0 0 1rem 0;
+}
+
+footer.mainFooter .inline-list a {
+    width: 2rem;
+    height: 2rem;
+    background-color: #33383b;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    margin: 0 3px 0 0;
+}
+
+
+/******* Landing page **********/
+
+/* landing - header */
+section.landing h1.headingBatAcademy {
+    padding: 1.688rem 0;
+    font-family: dkc-forever;
+}
+
+section.landing div.landCont {
+    padding: 50px 0 0;
+}
+
+section.landing div.landCont .signupBtn {
+    text-align: center;
+}
+
+section.landing div.landCont .signupBtn, section.landing div.landCont .signIn {
+    padding: 50px 0 0;
+}
+
+section.landing div.landCont .signinBtns {
+    margin: 20px 0 0;
+}
+
+section.landing div.landCont .brderRight {
+    border-right: 1px solid #777;
+    height: 40vh;
+}
