@@ -25,7 +25,7 @@
             <div class="row landCont">
                 <div class="large-6 medium-6 columns brderRight">
                     <div class="primary signupBtn">
-                        <a href="#" class="secondary button">Sign Up</a>
+                        <a data-open="batQuiz" class="secondary button">Sign Up</a>
                     </div>
                 </div>
                 <div class="large-4 medium-4 columns">
@@ -47,6 +47,27 @@
                             </div> 
                         </form>
                     </div>
+                </div>
+
+                <div class="reveal modals"  id="batQuiz" data-reveal>
+                    <h5>Please anyswer the below question in 10 seconds.</h5>
+                    <div id="bat1" class="batmods hide">
+                        <p class="lead">It's dark. You have ten grey socks and ten blue socks you want to put into pairs.
+                            All socks are exactly the same except for their colour. 
+                            How many socks would you need to take with you to ensure you had at least a pair?</p>
+                        <input type="radio" name="bat1" id="ans3" value="3"><label for="ans3">3</label>
+                        <input type="radio" name="bat1" id="ans16" value="16"><label for="ans16">16</label>
+                        <input type="radio" name="bat1" id="ans8" value="8"><label for="ans8">8</label>
+                    </div>
+                    <div id="bat2" class="batmods hide">
+                        <p class="lead">The sum of <img src="images/quiz.png"></p>
+                        <input type="radio" name="bat2" id="ans43" value="43"><label for="ans43">43</label>
+                        <input type="radio" name="bat2" id="ans41" value="41"><label for="ans41">41</label>
+                        <input type="radio" name="bat2" id="ans42" value="42"><label for="ans42">42</label>
+                    </div>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
 

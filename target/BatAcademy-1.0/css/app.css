@@ -68,6 +68,24 @@ footer.mainFooter .inline-list a {
     margin: 0 3px 0 0;
 }
 
+/*foundation modals */
+.close-button {
+  position: absolute;
+  color: #8a8a8a;
+  right: 1rem;
+  top: 0.5rem;
+  font-size: 2em;
+  line-height: 1;
+  cursor: pointer; }
+  [data-whatinput='mouse'] .close-button {
+    outline: 0; }
+  .close-button:hover, .close-button:focus {
+    color: #0a0a0a; }
+
+.modals, .modals label {
+    color: #000;
+}
+
 
 /******* Landing page **********/
 
@@ -84,8 +102,13 @@ section.landing div.landCont {
 section.landing div.landCont .signupBtn {
     text-align: center;
 }
-
-section.landing div.landCont .signupBtn, section.landing div.landCont .signIn {
+section.landing div.landCont .signupBtn {
+    padding: 100px 0 0;
+}
+section.landing div.landCont .signupBtn a {
+    width: 12.5rem;
+}
+section.landing div.landCont .signIn {
     padding: 50px 0 0;
 }
 
