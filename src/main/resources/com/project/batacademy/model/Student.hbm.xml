@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 5, 2016 1:56:41 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.project.batacademy.model.Student" table="Student" catalog="batacademy" optimistic-lock="version">
+        <id name="studentId" type="int">
+            <column name="StudentID" />
+            <generator class="assigned" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="FirstName" length="15" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LastName" length="15" not-null="true" />
+        </property>
+        <property name="gender" type="string">
+            <column name="Gender" length="1" not-null="true" />
+        </property>
+        <property name="phno" type="string">
+            <column name="Phno" length="15" not-null="true" />
+        </property>
+        <property name="cgpa" type="float">
+            <column name="CGPA" precision="3" not-null="true" />
+        </property>
+        <property name="register" type="boolean">
+            <column name="Register" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

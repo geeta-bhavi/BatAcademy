@@ -30,7 +30,7 @@
                 </div>
                 <div class="large-4 medium-4 columns">
                     <div class="primary signIn">
-                        <form id="batSignIn">
+                        <form id="batSignIn" method="post" action="/BatAcademy/signin">
                             <div>
                                 <input name="id" type="number" id="userId" placeholder="Enter Id" />
                             </div>
@@ -41,6 +41,7 @@
                                 <input type="radio" name="userType" value="student" checked="checked" id="student"><label for="student">Student</label>
                                 <input type="radio" name="userType" value="faculty" id="faculty"><label for="faculty">Faculty</label>
                             </div>
+                            <div id="error"></div>
                             <div class="signinBtns">
                                 <input type="submit" value="Sign In" class="button secondary">
                                 <input type="reset" value="Clear" class="button secondary">
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="reveal modals"  id="batQuiz" data-reveal>
-                    <h5>Please anyswer the below question in 10 seconds.</h5>
+                    <h5>Please anyswer the below question in 20 seconds.</h5>
                     <div id="bat1" class="batmods hide">
                         <p class="lead">It's dark. You have ten grey socks and ten blue socks you want to put into pairs.
                             All socks are exactly the same except for their colour. 

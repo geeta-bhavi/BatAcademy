@@ -7,10 +7,12 @@ package com.project.batacademy.service;
 public class AuthenticateUser {
     
     public AuthenticateUser() {
-        //db initialization?
     }
     
     public String checkIfUserExists() {
+        
+        
+        
         
         return "student";
     }

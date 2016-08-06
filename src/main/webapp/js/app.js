@@ -4,10 +4,12 @@ $(function(){
 
 
 	/* register functions */
-	$("#batSignIn").on("submit", batHandleSignIn);
+	//$("#batSignIn").on("submit", batHandleSignIn);
 	$(window).on("load resize", batHandleLoad);
 	$(window).on("open.zf.reveal", batshowQuiz);
 	$(".batmods").on("click", batSubmitQuiz);
+	$("#userId").on("keypress", removeErrorClass);
+	$("#userPasssword").on("keypress", removeErrorClass);
 
 
 	/* functions */
@@ -24,29 +26,47 @@ $(function(){
 	    }
 	}
 
-	function batHandleSignIn(event) {
-		event.preventDefault();
-		var id = $("#userId").val();
-		var pwd = $("#userPasssword").val();
-		if(id.length !== 0 && pwd.length !== 0) {
-			$.ajax({
-			  method: "POST",
-			  url: "../BatAcademy/signin",
-			  data: { id: id, password: pwd }
-			})
-			  .done(function( data ) {
-			  	if(data === "error") {
+	// function batHandleSignIn(event) {
+	// 	event.preventDefault();
+	// 	/* clear errors */
+	// 	$("#error").html();
+	// 	clearError();
 
-			  	} else if(data === "student") {
-			  		window.location = '../BatAcademy/UserDetailsStudent.jsp';
-			  	} else if(data === "faculty") {
-			  		window.location = '../BatAcademy/UserDetailsFaculty.jsp';
-			  	}
-			  });
-		} else {
-			alert("error");
-		}
-	}
+
+	// 	var id = $("#userId").val();
+	// 	var pwd = $("#userPasssword").val();
+ //                var type = $('input[name=userType]:checked').val();
+                        
+	// 	if(id.length !== 0 && pwd.length !== 0) {
+	// 		$.ajax({
+	// 		  method: "POST",
+	// 		  url: "../BatAcademy/signin",
+	// 		  data: { id: id, password: pwd, userType: type}
+	// 		})
+	// 		  .done(function( data ) {
+	// 		  	if(data === "error") {
+
+	// 		  	} else if(data === "student") {
+	// 		  		window.location = '../BatAcademy/UserDetailsStudent.jsp';
+	// 		  	} else if(data === "faculty") {
+	// 		  		window.location = '../BatAcademy/UserDetailsFaculty.jsp';
+	// 		  	}
+	// 		  });
+	// 	} else {
+	// 		var ulEle = $("<ul></ul>");
+	// 		if(id.length === 0) {
+	// 			ulEle.append("<li>Id field is empty</li>");
+	// 			$("#userId").addClass('error');
+	// 		}
+	// 		if(pwd.length == 0) {
+	// 			ulEle.append("<li>Password field is empty</li>");
+	// 			$("#userPasssword").addClass('error');
+	// 		}
+
+	// 		$("#error").html(ulEle);
+
+	// 	}
+	// }
 
 	function batshowQuiz() {
 		var num = getRandomArbitrary(1, 3);
@@ -56,7 +76,7 @@ $(function(){
 		$("#"+id+" input[type='radio']").removeAttr("checked");
 		setTimeout(function() {
 			window.location = '../BatAcademy/HandleError.jsp';
-		}, 10000);
+		}, 20000);
 	}
 
 	function batSubmitQuiz() {
@@ -78,6 +98,15 @@ $(function(){
 
 	function getRandomArbitrary(min, max) {
 	    return Math.floor(Math.random() * (max - min) + min);
+	}
+
+	function clearError() {
+		$("#userId").removeClass('error');
+		$("#userPasssword").removeClass('error');
+	}
+
+	function removeErrorClass() {
+		$(this).removeClass('error');
 	}
 
 

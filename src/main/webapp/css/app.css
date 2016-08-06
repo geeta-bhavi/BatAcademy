@@ -120,3 +120,11 @@ section.landing div.landCont .brderRight {
     border-right: 1px solid #777;
     height: 40vh;
 }
+
+section.landing div#error {
+    color:#FF4500;
+}
+section.landing input.error {
+    border: 1px solid #FF4500;
+    box-shadow: 0 0px 10px #FF4500;
+}

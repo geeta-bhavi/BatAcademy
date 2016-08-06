@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://www.db4free.net:3306/batacademy</property>
+    <property name="hibernate.connection.username">batuser</property>
+    <property name="hibernate.connection.password">batpassword</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="com/project/batacademy/model/Course.hbm.xml"/>
+    <mapping resource="com/project/batacademy/model/RegisteredCourses.hbm.xml"/>
+    <mapping resource="com/project/batacademy/model/Student.hbm.xml"/>
+    <mapping resource="com/project/batacademy/model/Faculty.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

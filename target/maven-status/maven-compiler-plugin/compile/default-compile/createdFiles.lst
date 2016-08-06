@@ -1,2 +1,11 @@
-com/project/batacademy/controller/SignInServlet.class
 com/project/batacademy/service/AuthenticateUser.class
+com/project/batacademy/model/RegisteredCourses.class
+com/project/batacademy/model/Student.class
+com/project/batacademy/model/Course.class
+com/project/batacademy/service/StudentHelper.class
+com/project/batacademy/model/RegisteredCoursesId.class
+com/project/batacademy/service/RegisteredCoursesHelper.class
+com/project/batacademy/model/Faculty.class
+com/project/batacademy/controller/SignInServlet.class
+com/project/batacademy/service/CourseHelper.class
+com/project/batacademy/service/HibernateUtil.class
