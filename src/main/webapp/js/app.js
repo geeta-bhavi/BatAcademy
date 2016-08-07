@@ -50,7 +50,7 @@ $(function () {
                         $(".loader").removeClass("show").addClass("hide");
                         $("section.landing").removeClass("loading");
                         if (data === "error") {
-                        	clearError();
+                            clearError();
                             showError("You have either entered wrong Id or Password");
                         } else if (data === "student") {
                             window.location = '../BatAcademy/StudentDetailsController';
@@ -118,23 +118,23 @@ $(function () {
         var table = $("#selectedCousesTable");
         var list = $("#courseList");
 
+
         $("#error").removeClass("show").addClass("hide");
         parentParent.toggleClass("selected");
 
-        if(list.find(".selected").length <= 2) {
-            if(parentParent.hasClass("selected")) {
-                var tr = $("<tr></tr>");
-                tr.append("<td>"+parent.data("cid")+"</td>");
-                tr.append("<td>"+parent.data("cname")+"</td>");
-                tr.append("<td>"+parent.data("faculty")+"</td>");
-                tr.append("<td></td>");
-                tr.append("<td></td>");
-                tr.append("<td></td>");
-
-                table.append(tr);
-            }
-        } else {
+        if(list.find(".selected").length > 2) {
             $("#error").removeClass("hide").addClass("show");
+            // if(parentParent.hasClass("selected")) {
+            //     var tr = $("<tr></tr>");
+            //     tr.append("<td>"+parentParent.data("cid")+"</td>");
+            //     tr.append("<td>"+parentParent.data("cname")+"</td>");
+            //     tr.append("<td>"+parentParent.data("faculty")+"</td>");
+            //     tr.append("<td></td>");
+            //     tr.append("<td></td>");
+            //     tr.append("<td></td>");
+
+            //     table.append(tr);
+            // }
         }
         
     }
@@ -142,10 +142,68 @@ $(function () {
     function showCourseList(event){
         event.preventDefault();
         var tr = $("#courseList").find("tr.selected");
+        
         if(tr.length >0 && tr.length <= 2 ) {
-            $("#courseList").removeClass("show").addClass("hide");
-            $("#selectedCouses").removeClass("hide").addClass("show");
-            $("#confirmation").hide();
+
+            var list = [];
+            var courses = {
+                "studentId": $("#studentId").html(),
+                "courseList" : []
+            };
+
+            $.each( tr, function( key, value ) {
+                var cid = value.attributes.getNamedItem("data-cid").value;
+                var cname = value.attributes.getNamedItem("data-cname").value;
+                var faculty = value.attributes.getNamedItem("data-faculty").value;
+                var tr = $("<tr></tr>");
+                tr.append("<td>"+cid+"</td>");
+                tr.append("<td>"+cname+"</td>");
+                tr.append("<td>"+faculty+"</td>");
+                tr.append("<td></td>");
+                tr.append("<td></td>");
+                tr.append("<td></td>");
+
+                $("#selectedCousesTable").append(tr);
+
+                var course = {
+                            "courseId": cid,
+                            "coursename": cname
+                        }
+
+                list.push(course);   
+            });
+
+
+            courses.courseList = list;
+            
+
+            $.ajax({
+                method: "POST",
+                url: "../BatAcademy/StudentDetailsController",
+                data: {courses: JSON.stringify(courses) }
+            }).done(function (data) {
+
+                if(data === "success") {
+                    $("#courseList").removeClass("show").addClass("hide");
+                    $("#selectedCouses").removeClass("hide").addClass("show");
+                    $("#confirmation").hide();
+                } else {
+                    $("#servererror").removeClass("hide").addClass("show");
+                    $("#selectedCousesTable").empty();
+
+                    var th = $("<tr></tr>");
+                    th.append("<th>Course Id</th>");
+                    th.append("<th>Course Name</th>");
+                    th.append("<th>Faculty Name</th>");
+                    th.append("<th>Activity 1</th>");
+                    th.append("<th>Activity 2</th>");
+                    th.append("<th>Activity 3</th>");
+
+                    $("#selectedCousesTable").append(th);
+                }
+
+            });
+
         } else {
             $("#error").removeClass("hide").addClass("show");
         }
@@ -156,7 +214,7 @@ $(function () {
     }
 
     function clearError() {
-    	$("#error").empty();
+        $("#error").empty();
         $("#userId").removeClass('error');
         $("#userPasssword").removeClass('error');
     }

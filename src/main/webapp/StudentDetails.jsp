@@ -23,7 +23,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
     </head>
     <body>
-        <section class="details">
+        <section id="studentDetails" class="details">
             <header class="row">
                 <div class="large-12 columns large-text-center medium-text-center">
                     <h1>Bat Trainee</h1>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="large-10 medium-10 columns">
                         <ul class="studentDetail">
-                            <li><span class="batLabel">Student Id:</span><span class="info">${student.getStudentId()}</span></li>
+                            <li><span class="batLabel">Student Id:</span><span id="studentId" class="info">${student.getStudentId()}</span></li>
                             <li><span class="batLabel">First Name:</span><span class="info">${student.getFirstName()}</span></li>
                             <li><span class="batLabel">Last Name:</span><span class="info">${student.getLastName()}</span></li>
                             <li><span class="batLabel">Phone Number:</span><span class="info">${student.getPhno()}</span></li>
@@ -46,11 +46,10 @@
                 </div>
             </div>
 
-            <c:if test="${student.getCgpa() == 0.0}">
-                <div class="row cgpa">
-                    <span class="gpaLabel">CGPA:</span> ${student.getCgpa()}
-                </div>
-            </c:if>
+            
+            <div class="row cgpa">
+                <span class="gpaLabel">CGPA:</span> ${student.getCgpa()}
+            </div>
 
             <div class="row coursesCont">
                 <div>
@@ -62,13 +61,13 @@
                             <th>Add</th>
                         </tr>
                         <c:forEach var="course" items="${courses}">
-                            <tr>
+                            <tr data-cid="${course.getCourseId()}"
+                                    data-cname="${course.getCourseName()}"
+                                    data-faculty="${course.getFacultyId()}">
                                 <td>${course.getCourseId()}</td>
                                 <td>${course.getCourseName()}</td>
                                 <td>${course.getFacultyId()}</td>
-                                <td data-cid="${course.getCourseId()}"
-                                    data-cname="${course.getCourseName()}"
-                                    data-faculty="${course.getFacultyId()}">
+                                <td>
                                     <a class="addCourse" href="#">
                                         <img src="images/batman-unsel.png">
                                         <img style="display: none;" src="images/batman-sel.png">
@@ -81,6 +80,7 @@
                         <div id="error" class="hide">Please select 2 courses. No more than 2 courses.</div>
                         <a href="#" class="confirm button secondary">Confirm Courses</a>
                     </div>
+                    <div id="servererror" class="hide">Server Error.</div>
                     <div id="selectedCouses" class="hide">
                         <h4>Selected Courses</h4>
                         <table class="courseTable" id="selectedCousesTable">
@@ -95,23 +95,15 @@
                         </table>
                     </div>
                 </div>
-            </div
+            </div>
 
         </section>
         
 
 
-
-
-
-
-
-
-
         <%@include file="footer.html" %>
 
         <script src="js/vendor/jquery.js"></script>
-        <script src="js/vendor/what-input.js"></script>
         <script src="js/vendor/foundation.js"></script>
         <script src="js/app.js"></script>
     </body>

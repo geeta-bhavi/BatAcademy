@@ -12,6 +12,7 @@ import com.project.batacademy.model.RegisteredCourses;
 import com.project.batacademy.model.Student;
 import com.project.batacademy.service.StudentDetailsService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -27,6 +30,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "StudentDetailsController", urlPatterns = {"/StudentDetailsController"})
 public class StudentDetailsController extends HttpServlet {
+    
+    private final String CONTENT_TYPE = "text/html";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,6 +81,40 @@ public class StudentDetailsController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        response.setContentType(CONTENT_TYPE);
+        
+        String json[] = request.getParameterValues("courses");
+        for(String str : json) {
+            JSONObject obj = new JSONObject(str);
+            String studentId = obj.getString("studentId");
+            System.out.println("studentId "+studentId);
+            JSONArray arr = obj.getJSONArray("courseList");
+            for (int i = 0; i < arr.length(); i++) {
+                String courseId = arr.getJSONObject(i).getString("courseId");
+                String courseName = arr.getJSONObject(i).getString("coursename");
+                System.out.println("courseId "+courseId);
+                System.out.println("courseName "+courseName);
+            }
+            
+            out.write("success");
+        }
+        
+        out.close();
+
     }
 
     /**
