@@ -3,7 +3,8 @@
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="batacademy"/>
   <table-filter match-name="Faculty"/>
+  <table-filter match-name="Activity"/>
+  <table-filter match-name="RegisteredCourses"/>
   <table-filter match-name="Student"/>
   <table-filter match-name="Course"/>
-  <table-filter match-name="RegisteredCourses"/>
 </hibernate-reverse-engineering>

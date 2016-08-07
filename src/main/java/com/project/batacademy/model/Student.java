@@ -1,5 +1,5 @@
 package com.project.batacademy.model;
-// Generated Aug 5, 2016 1:56:41 PM by Hibernate Tools 4.3.1
+// Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1
 
 
 
@@ -16,11 +16,12 @@ public class Student  implements java.io.Serializable {
      private String phno;
      private float cgpa;
      private boolean register;
+     private String password;
 
     public Student() {
     }
 
-    public Student(int studentId, String firstName, String lastName, String gender, String phno, float cgpa, boolean register) {
+    public Student(int studentId, String firstName, String lastName, String gender, String phno, float cgpa, boolean register, String password) {
        this.studentId = studentId;
        this.firstName = firstName;
        this.lastName = lastName;
@@ -28,6 +29,7 @@ public class Student  implements java.io.Serializable {
        this.phno = phno;
        this.cgpa = cgpa;
        this.register = register;
+       this.password = password;
     }
    
     public int getStudentId() {
@@ -78,6 +80,13 @@ public class Student  implements java.io.Serializable {
     
     public void setRegister(boolean register) {
         this.register = register;
+    }
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 

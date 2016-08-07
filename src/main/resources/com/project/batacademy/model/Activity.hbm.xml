@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.project.batacademy.model.Activity" table="Activity" catalog="batacademy" optimistic-lock="version">
+        <composite-id name="id" class="com.project.batacademy.model.ActivityId">
+            <key-property name="studentId" type="int">
+                <column name="StudentID" />
+            </key-property>
+            <key-property name="courseId" type="int">
+                <column name="CourseID" />
+            </key-property>
+        </composite-id>
+        <property name="a1" type="int">
+            <column name="A1" not-null="true" />
+        </property>
+        <property name="a2" type="int">
+            <column name="A2" not-null="true" />
+        </property>
+        <property name="a3" type="int">
+            <column name="A3" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

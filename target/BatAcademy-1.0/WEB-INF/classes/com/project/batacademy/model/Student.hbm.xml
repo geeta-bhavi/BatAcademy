@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 5, 2016 1:56:41 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.project.batacademy.model.Student" table="Student" catalog="batacademy" optimistic-lock="version">
         <id name="studentId" type="int">
@@ -25,6 +25,9 @@
         </property>
         <property name="register" type="boolean">
             <column name="Register" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="15" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

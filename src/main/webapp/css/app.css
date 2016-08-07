@@ -21,6 +21,9 @@
 /* all screens */
 body {background: #4f5457; color:#fff;}
 label {color:#fff;}
+ul {list-style: none;}
+.hide {display: none;}
+.show {display: block;}
 /* custom fonts */
 @font-face {
     font-family: dkc-forever;
@@ -127,4 +130,113 @@ section.landing div#error {
 section.landing input.error {
     border: 1px solid #FF4500;
     box-shadow: 0 0px 10px #FF4500;
+}
+section.landing .loader {
+    position:absolute;
+    left:50%; 
+    top:50%;
+}
+
+section.landing .loader .loadingAnime {
+    border: 16px solid #000;
+    border-radius: 50%;
+    border-top: 16px solid #fff;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+section.loading {
+     /* Make the contents of the body opaque during loading */
+    opacity: 0.5;
+
+    /* Ensures that the transition only runs in one direction */
+    -webkit-transition: opacity 0;
+    transition: opacity 0;
+
+}
+
+
+/********** Details Page **********/
+section.details h1 {
+    padding: 1.25rem 0;
+    font-family: dkc-forever;
+    border-bottom: 2px solid #fff;
+}
+
+section.details {
+    margin-top: 0.875rem;
+}
+section.details #profilePic {
+    width: 9.375rem;
+    height: 9.375rem;
+}
+section.details .batLabel {
+    display: inline-block;
+    width: 7.875rem;
+    font-weight: bold;
+}
+section.details .info {
+    display: inline-block;
+}
+section.details .info::first-letter {
+    text-transform: uppercase;
+}
+section.details .info:not(first-letter) {
+    text-transform: lowercase;
+}
+section.details .detailsCont {
+    margin-top: 1rem;
+}
+section.details .infoCont {
+    overflow: auto;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 1rem;
+}
+section.details .cgpa {
+    font-size: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #fff;
+}
+section.details .gpaLabel {
+    display: inline-block;
+    width: 80px;
+    font-weight: bold;
+}
+table.courseTable tbody {
+    border: none;
+    background: none;
+}
+table.courseTable tbody tr:nth-child(even) {
+    background-color: #4f5457;
+}
+section.details .courseTable {
+   text-align: center;
+}
+section.details .confirm {
+    width: 200px;
+}
+section.details #error {
+    color: #FF4500;
+    padding: 1rem 0;
+}
+section.details table tbody th, section.details table tbody td {
+    border: 1px solid #aaa;
+}
+
+section.details .coursesCont::after {
+    margin-bottom: 2rem;
 }

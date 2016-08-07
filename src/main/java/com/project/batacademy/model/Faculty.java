@@ -1,5 +1,5 @@
 package com.project.batacademy.model;
-// Generated Aug 5, 2016 1:56:41 PM by Hibernate Tools 4.3.1
+// Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1
 
 
 
@@ -15,12 +15,13 @@ public class Faculty  implements java.io.Serializable {
      private String gender;
      private String phno;
      private String designation;
-     private String enable;
+     private boolean enable;
+     private String password;
 
     public Faculty() {
     }
 
-    public Faculty(int facultyId, String firstName, String lastName, String gender, String phno, String designation, String enable) {
+    public Faculty(int facultyId, String firstName, String lastName, String gender, String phno, String designation, boolean enable, String password) {
        this.facultyId = facultyId;
        this.firstName = firstName;
        this.lastName = lastName;
@@ -28,6 +29,7 @@ public class Faculty  implements java.io.Serializable {
        this.phno = phno;
        this.designation = designation;
        this.enable = enable;
+       this.password = password;
     }
    
     public int getFacultyId() {
@@ -72,12 +74,19 @@ public class Faculty  implements java.io.Serializable {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
-    public String getEnable() {
+    public boolean isEnable() {
         return this.enable;
     }
     
-    public void setEnable(String enable) {
+    public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
