@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="batacademy"/>
-  <table-filter match-name="Faculty"/>
-  <table-filter match-name="Activity"/>
-  <table-filter match-name="RegisteredCourses"/>
   <table-filter match-name="Student"/>
+  <table-filter match-name="RegisteredCourses"/>
+  <table-filter match-name="Activity"/>
+  <table-filter match-name="Faculty"/>
   <table-filter match-name="Course"/>
 </hibernate-reverse-engineering>

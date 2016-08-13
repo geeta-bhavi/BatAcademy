@@ -1,5 +1,5 @@
 package com.project.batacademy.model;
-// Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1
+// Generated Aug 12, 2016 12:54:43 PM by Hibernate Tools 4.3.1
 
 
 
@@ -11,13 +11,15 @@ public class RegisteredCourses  implements java.io.Serializable {
 
      private RegisteredCoursesId id;
      private String courseName;
+     private boolean completed;
 
     public RegisteredCourses() {
     }
 
-    public RegisteredCourses(RegisteredCoursesId id, String courseName) {
+    public RegisteredCourses(RegisteredCoursesId id, String courseName, boolean completed) {
        this.id = id;
        this.courseName = courseName;
+       this.completed = completed;
     }
    
     public RegisteredCoursesId getId() {
@@ -33,6 +35,13 @@ public class RegisteredCourses  implements java.io.Serializable {
     
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+    public boolean isCompleted() {
+        return this.completed;
+    }
+    
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
 

@@ -43,62 +43,113 @@
                             <li><span class="batLabel">Phone Number:</span><span class="info">${student.getPhno()}</span></li>
                         </ul>
                     </div>
+                    <!-- <div class="large-10 medium-10 columns">
+                         <ul class="logout"> 
+                             <li><span class="glyphicon glyphicon-log-out">Log out</li>
+                         </ul> 
+                     </div> -->
                 </div>
             </div>
 
-            
+
             <div class="row cgpa">
                 <span class="gpaLabel">CGPA:</span> ${student.getCgpa()}
             </div>
 
-            <div class="row coursesCont">
-                <div>
-                    <table id="courseList" class="courseTable">
-                        <tr>
-                            <th>Course Id</th>
-                            <th>Course Name</th>
-                            <th>Faculty Name</th>
-                            <th>Add</th>
-                        </tr>
-                        <c:forEach var="course" items="${courses}">
-                            <tr data-cid="${course.getCourseId()}"
-                                    data-cname="${course.getCourseName()}"
-                                    data-faculty="${course.getFacultyId()}">
-                                <td>${course.getCourseId()}</td>
-                                <td>${course.getCourseName()}</td>
-                                <td>${course.getFacultyId()}</td>
-                                <td>
-                                    <a class="addCourse" href="#">
-                                        <img src="images/batman-unsel.png">
-                                        <img style="display: none;" src="images/batman-sel.png">
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                    <div id="confirmation" class="large-text-center medium-text-center">
-                        <div id="error" class="hide">Please select 2 courses. No more than 2 courses.</div>
-                        <a href="#" class="confirm button secondary">Confirm Courses</a>
+            <c:choose>
+                <c:when test="${enable && !register}">  
+                    <c:set var="showCoursesToRegister" value="true"/></c:when>
+                <c:when test="${enable && register}">
+                    <c:set var="showCoursesAlreadyRegister" value="false"/></c:when>
+                <c:otherwise> 
+                    show already registered courses
+                    <c:set var="showCoursesAlreadyRegister" value="false"/> </c:otherwise>
+            </c:choose>
+
+
+            <c:choose>
+                <c:when test="${showCoursesToRegister==true}">
+                    <div class="row coursesCont">
+                        <div>
+                            <table id="courseList" class="courseTable">
+                                <tr>
+                                    <th>Course Id</th>
+                                    <th>Course Name</th>
+                                    <th>Faculty Name</th>
+                                    <th>Add</th>
+                                </tr>
+                                <c:forEach var="course" items="${courses}">
+                                    <tr data-cid="${course.getCourseId()}"
+                                        data-cname="${course.getCourseName()}"
+                                        data-faculty="${faculty[course.getFacultyId()]}">
+                                        <td>${course.getCourseId()}</td>
+                                        <td>${course.getCourseName()}</td>
+                                        <td>${faculty[course.getFacultyId()]}</td>
+                                        <%--<td>${course.getFacultyId()}</td><td><c:out value="${facultyMap[course.getFacultyId()]}"/></td>--%>
+                                        <td>
+                                            <a class="addCourse" href="#">
+                                                <img src="images/batman-unsel.png">
+                                                <img style="display: none;" src="images/batman-sel.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                            <div id="confirmation" class="large-text-center medium-text-center">
+                                <div id="error" class="hide">Please select 2 courses. No more than 2 courses.</div>
+                                <a href="#" class="confirm button secondary">Confirm Courses</a>
+                            </div>
+                            <div id="servererror" class="hide">Server Error.</div>
+                            <div id="selectedCouses" class="hide">
+                                <h4>Selected Courses</h4>
+                                <table class="courseTable" id="selectedCousesTable">
+                                    <tr>
+                                        <th>Course Id</th>
+                                        <th>Course Name</th>
+                                        <th>Faculty Name</th>
+                                        <th>Activity 1</th>
+                                        <th>Activity 2</th>
+                                        <th>Activity 3</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div id="servererror" class="hide">Server Error.</div>
-                    <div id="selectedCouses" class="hide">
-                        <h4>Selected Courses</h4>
-                        <table class="courseTable" id="selectedCousesTable">
-                            <tr>
-                                <th>Course Id</th>
-                                <th>Course Name</th>
-                                <th>Faculty Name</th>
-                                <th>Activity 1</th>
-                                <th>Activity 2</th>
-                                <th>Activity 3</th>
-                            </tr>
-                        </table>
+                </c:when>
+                
+                <c:when test="${showCoursesAlreadyRegister==false}">
+                    <div class="row coursesCont">
+                        <div>
+                            <h4>Selected Courses</h4>
+                            <table id="courseList" class="courseTable">
+                                <tr>
+                                    <th>Course Id</th>
+                                    <th>Course Name</th>
+                                    <th>Faculty Name</th>
+                                    <th>Activity 1</th>
+                                    <th>Activity 2</th>
+                                    <th>Activity 3</th>
+                                    <th>Course Completed</th>
+                                </tr>
+                                <c:forEach var="details" items="${selectedCourses}">
+                                    <tr>
+                                        <td>${details.getCourseID()}</td>
+                                        <td>${details.getCourseName()}</td>
+                                        <td>${details.getFacultyName()}</td>
+                                        <td>${details.getA1()}</td>
+                                        <td>${details.getA2()}</td>
+                                        <td>${details.getA3()}</td>  
+                                        <td>${details.getCourseCompletedStatus()}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </c:when>
+            </c:choose>
 
         </section>
-        
+
 
 
         <%@include file="footer.html" %>

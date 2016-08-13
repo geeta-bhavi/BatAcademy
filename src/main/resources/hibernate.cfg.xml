@@ -11,9 +11,9 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="com/project/batacademy/model/Course.hbm.xml"/>
-    <mapping resource="com/project/batacademy/model/RegisteredCourses.hbm.xml"/>
-    <mapping resource="com/project/batacademy/model/Activity.hbm.xml"/>
     <mapping resource="com/project/batacademy/model/Student.hbm.xml"/>
     <mapping resource="com/project/batacademy/model/Faculty.hbm.xml"/>
+    <mapping resource="com/project/batacademy/model/RegisteredCourses.hbm.xml"/>
+    <mapping resource="com/project/batacademy/model/Activity.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
