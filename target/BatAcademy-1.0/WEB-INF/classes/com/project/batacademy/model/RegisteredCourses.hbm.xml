@@ -15,5 +15,8 @@
         <property name="courseName" type="string">
             <column name="CourseName" length="20" not-null="true" />
         </property>
+        <property name="completed" type="boolean">
+            <column name="Completed" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

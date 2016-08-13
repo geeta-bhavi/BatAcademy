@@ -5,9 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.project.batacademy.service.StudentDetailsService" %>
-<%@page import="com.project.batacademy.model.Student" %>
+<%@page errorPage="HandleError.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>

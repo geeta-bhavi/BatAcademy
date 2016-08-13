@@ -21,6 +21,7 @@
 /* all screens */
 body {background: #4f5457; color:#fff;}
 label {color:#fff;}
+.label.success, .label.alert {font-size: 1rem;}
 ul {list-style: none;}
 .hide {display: none;}
 .show {display: block;}
@@ -88,6 +89,41 @@ footer.mainFooter .inline-list a {
 .modals, .modals label {
     color: #000;
 }
+.loader {
+    position:absolute;
+    left:50%; 
+    top:50%;
+}
+
+.loader .loadingAnime {
+    border: 16px solid #000;
+    border-radius: 50%;
+    border-top: 16px solid #fff;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+section.loading {
+     /* Make the contents of the body opaque during loading */
+    opacity: 0.5;
+
+    /* Ensures that the transition only runs in one direction */
+    -webkit-transition: opacity 0;
+    transition: opacity 0;
+
+}
 
 
 /******* Landing page **********/
@@ -131,41 +167,6 @@ section.landing input.error {
     border: 1px solid #FF4500;
     box-shadow: 0 0px 10px #FF4500;
 }
-section.landing .loader {
-    position:absolute;
-    left:50%; 
-    top:50%;
-}
-
-section.landing .loader .loadingAnime {
-    border: 16px solid #000;
-    border-radius: 50%;
-    border-top: 16px solid #fff;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-section.loading {
-     /* Make the contents of the body opaque during loading */
-    opacity: 0.5;
-
-    /* Ensures that the transition only runs in one direction */
-    -webkit-transition: opacity 0;
-    transition: opacity 0;
-
-}
 
 
 /********** Details Page **********/
@@ -184,7 +185,7 @@ section.details #profilePic {
 }
 section.details .batLabel {
     display: inline-block;
-    width: 7.875rem;
+    width: 8.875rem;
     font-weight: bold;
 }
 section.details .info {
@@ -229,7 +230,7 @@ section.details .courseTable {
 section.details .confirm {
     width: 200px;
 }
-section.details #error {
+section.details #error, section.details #servererror {
     color: #FF4500;
     padding: 1rem 0;
 }
@@ -239,4 +240,38 @@ section.details table tbody th, section.details table tbody td {
 
 section.details .coursesCont::after {
     margin-bottom: 2rem;
+}
+
+/********** Faculty Page ***********/
+section.details #searchError , section.details #presEnSearchError {
+    color: #FF4500;
+    padding: 1rem 0;
+}
+section.details input.error {
+    border: 1px solid #FF4500;
+    box-shadow: 0 0px 10px #FF4500;
+}
+#updatedResults, #searchResults {
+    margin-bottom: 1rem;
+}
+section.details label.enableRegLabel {
+    cursor: pointer;
+}
+#presidentUpdateStatus {
+    font-size: 1rem;
+}
+
+.presSearchCont {
+    margin-top: 3.8rem;
+    overflow: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #fff;
+}
+
+/********* Sign Up ***************/
+#batSignUp {
+    margin-top: 1rem;
+}
+#errorSignUp {
+    color: #FF4500;
 }

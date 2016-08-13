@@ -19,7 +19,7 @@ public class FacultyHelper {
 
     public FacultyHelper() {
     }
-    
+
     public Object getFacultyDetails(int facultyId) {
         /*pass pwd later when column is added*/
         this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -44,7 +44,7 @@ public class FacultyHelper {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Query q = session.createQuery("from Faculty where facultyId =" + facultyId +" and Password =\""+pwd+"\"");
+            Query q = session.createQuery("from Faculty where facultyId =" + facultyId + " and Password ='" + pwd + "'");
             faculty = q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,5 +52,27 @@ public class FacultyHelper {
             tx.commit();
         }
         return faculty;
+    }
+    
+    public String updateEnableColumn(boolean enable) {
+        String updated = "error";
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("update Faculty set enable = :enable where facultyId = 1");
+            q.setParameter("enable", enable);
+            q.executeUpdate();
+            updated = "success";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            tx.commit();
+        }
+
+        return updated;
+
     }
 }

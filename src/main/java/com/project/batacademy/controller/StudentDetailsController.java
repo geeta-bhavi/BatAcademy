@@ -30,7 +30,7 @@ import org.json.JSONObject;
  */
 @WebServlet(name = "StudentDetailsController", urlPatterns = {"/StudentDetailsController"})
 public class StudentDetailsController extends HttpServlet {
-    
+
     private final String CONTENT_TYPE = "text/html";
 
     /**
@@ -48,22 +48,24 @@ public class StudentDetailsController extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             StudentDetailsService studentDetailsService = new StudentDetailsService();
-            RegisteredCoursesHelper regCourseHelper = new RegisteredCoursesHelper();
-            CourseHelper courseHelper = new CourseHelper();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("StudentDetails.jsp");
-            int studentId = (Integer) session.getAttribute("studentId");
-            Student student = (Student) studentDetailsService.getStudentDetails(studentId);
+            if (session.getAttribute("studentId") != null) {
+                int studentId = (Integer) session.getAttribute("studentId");
 
-            List<RegisteredCourses> takenCourses = regCourseHelper.getCourseIdGivenStudentId(studentId);
-            List<Course> courses = courseHelper.getRemainingCourses(takenCourses);
+                Student student = (Student) studentDetailsService.getStudentDetails(studentId);
 
-            request.setAttribute("student", student);
-            request.setAttribute("courses", courses);
+                List<Course> courses = studentDetailsService.getCourses(studentId);
 
-            requestDispatcher.forward(request, response);
+                request.setAttribute("student", student);
+                request.setAttribute("courses", courses);
+
+                requestDispatcher.forward(request, response);
+            } else {
+                response.sendRedirect("index.html");
+            }
+
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("index.html");
-            rd.forward(request, response);
+            response.sendRedirect("index.html");
         }
 
     }
@@ -82,7 +84,7 @@ public class StudentDetailsController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -96,23 +98,22 @@ public class StudentDetailsController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         response.setContentType(CONTENT_TYPE);
-        
+
         String json[] = request.getParameterValues("courses");
-        for(String str : json) {
+        for (String str : json) {
             JSONObject obj = new JSONObject(str);
             String studentId = obj.getString("studentId");
-            System.out.println("studentId "+studentId);
             JSONArray arr = obj.getJSONArray("courseList");
             for (int i = 0; i < arr.length(); i++) {
                 String courseId = arr.getJSONObject(i).getString("courseId");
                 String courseName = arr.getJSONObject(i).getString("coursename");
-                System.out.println("courseId "+courseId);
-                System.out.println("courseName "+courseName);
+                System.out.println("courseId " + courseId);
+                System.out.println("courseName " + courseName);
             }
-            
+
             out.write("success");
         }
-        
+
         out.close();
 
     }
