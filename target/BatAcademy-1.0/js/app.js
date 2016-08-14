@@ -15,7 +15,7 @@ $(function () {
     $("#searchById").on("submit", batSearchById); /* searching student by id and the faculty courseId to update/view activity score */
     $("#searchStudentId").on("keypress", removeErrorClass); /* remove error when faculty starts typing again */
     $("#searchCourseId").on("keypress", removeErrorClass);/* remove error when faculty starts typing again */
-    $("#updateActivity").on("click", updateActivity); /* update activity scores after faculty confirms scores */
+    $("#updateActivity").on("submit", updateActivity); /* update activity scores after faculty confirms scores */
     $("#enableReg").on("change", enableRegistrationForNewSem);/* president has checked enable button */
     $("#searchByStudentId").on("submit", searchStudent); /* president search to delete student */
     $("#deleteStudent").on("click", deleteStudent);
@@ -105,9 +105,9 @@ $(function () {
         var radioValue = $("input[name='" + id + "']:checked").val();
         if (radioValue) {
             if (id === "bat1" && radioValue === "3") {
-                window.location = '../BatAcademy/SignUp.jsp';
+                window.location = '../BatAcademy/signup';
             } else if (id === "bat2" && radioValue === "42") {
-                window.location = '../BatAcademy/SignUp.jsp';
+                window.location = '../BatAcademy/signup';
             } else {
                 window.location = '../BatAcademy/HandleError.jsp';
             }
@@ -139,6 +139,9 @@ $(function () {
         var tr = $("#courseList").find("tr.selected");
 
         if (tr.length > 0 && tr.length <= 2) {
+
+            $(".loader").removeClass("hide").addClass("show");
+            $("section.details").addClass("loading");
 
             var list = [];
             var courses = {
@@ -177,7 +180,8 @@ $(function () {
                 url: "../BatAcademy/StudentDetailsController",
                 data: {courses: JSON.stringify(courses)}
             }).done(function (data) {
-
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
                 if (data === "success") {
                     $("#courseList").removeClass("show").addClass("hide");
                     $("#selectedCouses").removeClass("hide").addClass("show");
@@ -229,9 +233,9 @@ $(function () {
                     /* if course is not completed then only allow faculty to edit */
                     var isCourseCompleted = value.courseCompleted;
                     if (isCourseCompleted) {
-                        $("#updateActivity").hide();
+                        $("#updateActivityBtn").hide();
                     } else {
-                        $("#updateActivity").show();
+                        $("#updateActivityBtn").show();
                     }
                     var inputlist = $(".allowEdit");
                     $.each(inputlist, function (index, value) {

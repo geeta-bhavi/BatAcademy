@@ -14,7 +14,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author geeta
+ * @author swathi
  */
 public class CourseHelper {
 
@@ -30,8 +30,16 @@ public class CourseHelper {
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("from Course where CourseId NOT IN(:courses)");
-            q.setParameter("courses", courses);
+            Query q;
+            if(courseIds.size()>0)
+            {
+                q = session.createQuery("from Course where CourseID NOT IN(:courses)");
+                q.setParameterList("courses", courseIds);
+            }
+            else 
+                q = session.createQuery("from Course");
+                
+                System.out.println(" query " + q.getQueryString().toString());
             courses = (List<Course>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,8 +48,7 @@ public class CourseHelper {
         }
         return courses;
     }
-    
-    
+   
     public List getCoursesForFaculty(int facultyId) {
         List<Course> courses = new ArrayList<Course>();
         Transaction tx = null;

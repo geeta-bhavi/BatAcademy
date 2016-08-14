@@ -6,10 +6,7 @@
 package com.project.batacademy.helper;
 
 import com.project.batacademy.model.Student;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,10 +23,10 @@ public class StudentHelper {
     }
 
     public Object getStudentDetails(int studentId) {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         Object student = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Student where studentId =" + studentId);
             student = q.uniqueResult();
@@ -39,14 +36,13 @@ public class StudentHelper {
             tx.commit();
         }
         return student;
-
     }
 
     public Object getStudentDetails(int studentId, String pwd) {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         Object student = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Student where StudentId =" + studentId + " and Password ='" + pwd + "'");
             student = q.uniqueResult();
@@ -58,12 +54,45 @@ public class StudentHelper {
         return student;
     }
 
+    public boolean isRegistered(int studentId) {
+        Student student = null;
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Student where StudentId =" + studentId);
+            student = (Student) q.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+        }
+        return student.isRegister();
+    }
+
+    public void setRegistered(int studentId) {
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createSQLQuery("update Student set Register = true where StudentId = :studentId");
+            q.setParameter("studentId", studentId);
+            System.out.println(" userid " + studentId);
+            q.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+        }
+    }
+
     public String updateRegisterColumn(boolean completed) {
         String updated = "error";
         Transaction tx = null;
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
+            System.out.println("completed" + completed);
             Query q = session.createQuery("update Student set Register = :completed");
             q.setParameter("completed", completed);
             q.executeUpdate();
@@ -143,9 +172,9 @@ public class StudentHelper {
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            
-            int studentId = (int )(Math.random() * 1100 + 1006);
-            
+
+            int studentId = (int) (Math.random() * 1100 + 1006);
+
             Student student = new Student(studentId, firstName, lastName, gender, phno, 0.0f, false, password);
 
             session.save(student);

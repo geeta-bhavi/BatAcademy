@@ -1,6 +1,5 @@
 package com.project.batacademy.helper;
 
-import com.project.batacademy.service.*;
 import com.project.batacademy.model.RegisteredCourses;
 import com.project.batacademy.model.RegisteredCoursesId;
 import java.util.ArrayList;
@@ -24,19 +23,71 @@ public class RegisteredCoursesHelper {
     }
 
     public List getCourseIdGivenStudentId(int studentId) {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+
         List<RegisteredCourses> courseIdList = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from RegisteredCourses where studentId = " + studentId);
-            courseIdList = (List<RegisteredCourses>) q.list();
+            courseIdList = fetchCoursesList((List<RegisteredCourses>) q.list());
+            System.out.println("course list " + courseIdList.toString());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             tx.commit();
         }
         return courseIdList;
+    }
+
+    public List fetchCoursesList(List<RegisteredCourses> selectedCourses) {
+        ArrayList<Integer> courseIds = new ArrayList<Integer>();
+        for (RegisteredCourses registeredCourse : selectedCourses) {
+            courseIds.add(registeredCourse.getId().getCourseId());
+        }
+
+        return courseIds;
+    }
+
+    public boolean updateRegisteredCourses(List<RegisteredCourses> selectedCourses) {
+
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            RegisteredCourses registeredCourses = new RegisteredCourses();
+            for (RegisteredCourses selectedcourse : selectedCourses) {
+                registeredCourses.setId(selectedcourse.getId());
+                registeredCourses.setCourseName(selectedcourse.getCourseName());
+                session.save(registeredCourses);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            tx.commit();
+        }
+        return true;
+    }
+
+    public List getRegisteredCoursesForStudent() {
+        
+        List<RegisteredCourses> registeredCourses = null;
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from RegisteredCourses");
+            registeredCourses = (List<RegisteredCourses>) q.list();
+            System.out.println("course list " + registeredCourses.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+        }
+        return registeredCourses;
     }
 
     public Object checkIfStudentHasTakenFacultyCourse(int studentId, int courseId) {
@@ -76,7 +127,7 @@ public class RegisteredCoursesHelper {
 
         return updated;
     }
-    
+
     public List<RegisteredCoursesId> getNotCompletedCoursesForStudents() {
         Transaction tx = null;
         List<RegisteredCoursesId> notCompletedCourses = new ArrayList<RegisteredCoursesId>();
@@ -92,17 +143,17 @@ public class RegisteredCoursesHelper {
         } finally {
             tx.commit();
         }
-        
+
         return notCompletedCourses;
     }
-    
+
     public String deleteRecordsOfStudent(int studentId) {
         String result = "error";
         Transaction tx = null;
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("delete from RegisteredCourses where id.studentId ="+studentId);
+            Query q = session.createQuery("delete from RegisteredCourses where id.studentId =" + studentId);
             q.executeUpdate();
             result = "success";
         } catch (Exception e) {
@@ -110,7 +161,7 @@ public class RegisteredCoursesHelper {
         } finally {
             tx.commit();
         }
-        
+
         return result;
     }
 

@@ -1,5 +1,5 @@
 package com.project.batacademy.model;
-// Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1
+// Generated Aug 12, 2016 12:54:43 PM by Hibernate Tools 4.3.1
 
 
 

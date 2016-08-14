@@ -16,20 +16,48 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author geeta
+ * @author swathi, geeta
  */
 public class ActivityHelper {
 
     Session session = null;
 
+    /**
+     *
+     */
     public ActivityHelper() {
     }
 
+    public Object getActivityforGiveCouserAndStudent(int courseId, int studentId) {
+        Activity activity = null;
+        Transaction tx = null;
+
+        System.out.println("getActivityforGiveCouserAndStudent courseId " + courseId + " student ID " + studentId);
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Activity");
+
+            for (Activity activityObj : (List<Activity>) q.list()) {
+                if (activityObj.getId().getCourseId() == courseId
+                        && activityObj.getId().getStudentId() == studentId) {
+                    activity = activityObj;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+        }
+        return activity;
+    }
+
     public Object getActivityDetails(int studentId, int courseId) {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         Object activity = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Activity where studentId =" + studentId + " and CourseId =" + courseId);
             activity = q.uniqueResult();
@@ -39,7 +67,6 @@ public class ActivityHelper {
             tx.commit();
         }
         return activity;
-
     }
 
     public String updateActivity(int studentId, int courseId, int a1, int a2, int a3) {
@@ -66,10 +93,10 @@ public class ActivityHelper {
     }
 
     public List<Activity> sumOfActivities(List<RegisteredCoursesId> courseIds) {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         List<Activity> activities = new ArrayList<Activity>();
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             System.out.println("llll " + courseIds);
             Query q = null;
@@ -78,7 +105,7 @@ public class ActivityHelper {
                 q.setParameter("studentId", reg.getStudentId());
                 q.setParameter("courseId", reg.getCourseId());
                 Activity act = (Activity) q.uniqueResult();
-                System.out.println("act "+act);
+                System.out.println("act " + act);
                 if (act != null) {
                     activities.add(act);
                 }
@@ -94,14 +121,14 @@ public class ActivityHelper {
         return activities;
 
     }
-    
+
     public String deleteRecordsOfStudent(int studentId) {
         String result = "error";
         Transaction tx = null;
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("delete from Activity where id.studentId ="+studentId);
+            Query q = session.createQuery("delete from Activity where id.studentId =" + studentId);
             q.executeUpdate();
             result = "success";
         } catch (Exception e) {
@@ -109,8 +136,7 @@ public class ActivityHelper {
         } finally {
             tx.commit();
         }
-        
+
         return result;
     }
-
 }

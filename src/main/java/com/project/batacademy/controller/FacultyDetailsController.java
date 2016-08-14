@@ -52,13 +52,13 @@ public class FacultyDetailsController extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("facultyId") != null) {
 
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("FacultyDetails.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/FacultyDetails.jsp");
 
                 int facultyId = (Integer) session.getAttribute("facultyId");
-
+                
                 /* if president signed in, then go to president details page */
                 if (facultyId == 1) {
-                    requestDispatcher = request.getRequestDispatcher("PresidentDetails.jsp");
+                    requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/PresidentDetails.jsp");
                 }
                 /* info about the faculty who signed in */
                 Faculty faculty = (Faculty) facultyDetailsService.getFacultyDetails(facultyId);

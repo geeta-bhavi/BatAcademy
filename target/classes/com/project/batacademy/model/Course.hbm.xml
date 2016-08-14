@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 7, 2016 12:01:40 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 12, 2016 12:54:43 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.project.batacademy.model.Course" table="Course" catalog="batacademy" optimistic-lock="version">
         <id name="courseId" type="int">
