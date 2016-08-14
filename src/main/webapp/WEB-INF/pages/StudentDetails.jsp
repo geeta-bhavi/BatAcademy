@@ -147,6 +147,8 @@
 
         </section>
 
+        <div id="overlay"></div>
+
         <div class="loader hide"><div class="loadingAnime"></div></div>
 
         <%@include file="footer.html" %>

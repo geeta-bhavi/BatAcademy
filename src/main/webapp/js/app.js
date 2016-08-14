@@ -67,16 +67,15 @@ $(function () {
         var type = $('input[name=userType]:checked').val();
 
         if (id.length !== 0 && pwd.length !== 0) {
-            $(".loader").removeClass("hide").addClass("show");
-            $("section.landing").addClass("loading");
+            showLoadingScreen();
+
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/signin",
                 data: {task: "signin", id: id, password: pwd, userType: type}
             })
                     .done(function (data) {
-                        $(".loader").removeClass("show").addClass("hide");
-                        $("section.landing").removeClass("loading");
+                        hideLoadingScreen();
                         if (data === "error") {
                             clearLandingError();
                             showError("You have either entered wrong Id or Password", "error");
@@ -160,8 +159,7 @@ $(function () {
 
         if (tr.length > 0 && tr.length <= 2) {
 
-            $(".loader").removeClass("hide").addClass("show");
-            $("section.details").addClass("loading");
+            showLoadingScreen();
 
             var list = [];
             var courses = {
@@ -200,8 +198,7 @@ $(function () {
                 url: "../BatAcademy/StudentDetailsController",
                 data: {courses: JSON.stringify(courses)}
             }).done(function (data) {
-                $(".loader").removeClass("show").addClass("hide");
-                $("section.details").removeClass("loading");
+                hideLoadingScreen();
                 if (data === "success") {
                     $("#courseList").removeClass("show").addClass("hide");
                     $("#selectedCouses").removeClass("hide").addClass("show");
@@ -239,15 +236,16 @@ $(function () {
         var cid = $("#searchCourseId option:selected").val();
 
         if (sid.length !== 0) {
-            $(".loader").removeClass("hide").addClass("show");
-            $("section.details").addClass("loading");
+            
+            showLoadingScreen();
+
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/FacultyDetailsController",
                 data: {task: "search", sid: sid, cid: cid}
             }).done(function (data) {
-                $(".loader").removeClass("show").addClass("hide");
-                $("section.details").removeClass("loading");
+                hideLoadingScreen();
+
                 if (data.activities !== undefined) {
                     var value = data.activities;
                     /* if course is not completed then only allow faculty to edit */
@@ -300,15 +298,13 @@ $(function () {
         var activity2 = $("#enterActivity2").val();
         var activity3 = $("#enterActivity3").val();
 
-        $(".loader").addClass("show").removeClass("hide");
-        $("section.details").addClass("loading");
+        showLoadingScreen();
         $.ajax({
             method: "POST",
             url: "../BatAcademy/FacultyDetailsController",
             data: {task: "update", sid: studentId, cid: courseId, activity1: activity1, activity2: activity2, activity3: activity3}
         }).done(function (data) {
-            $(".loader").removeClass("show").addClass("hide");
-            $("section.details").removeClass("loading");
+            hideLoadingScreen();
             if (data === "success") {
                 $("#searchResults").removeClass("show").addClass("hide");
                 $("#updatedResults").html("Data has been updated");
@@ -330,15 +326,13 @@ $(function () {
         $("#presidentUpdateStatus").html("");
         $("#presidentUpdateStatus").removeClass("success alert label");
 
-        $(".loader").addClass("show").removeClass("hide");
-        $("section.details").addClass("loading");
+        showLoadingScreen();
         $.ajax({
             method: "POST",
             url: "../BatAcademy/FacultyDetailsController",
             data: {task: "enableRegistrationForNewSem", enable: checked}
         }).done(function (data) {
-            $(".loader").removeClass("show").addClass("hide");
-            $("section.details").removeClass("loading");
+            hideLoadingScreen();
             if(data === "success") {
                 if(checked) {
                     $("#presidentUpdateStatus").html("Regsitration enabled successfully");
@@ -364,15 +358,13 @@ $(function () {
         var sid = $("#presStudentId").val();
 
         if (sid.length !== 0) {
-            $(".loader").removeClass("hide").addClass("show");
-            $("section.details").addClass("loading");
+            showLoadingScreen();
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/FacultyDetailsController",
                 data: {task: "presidentEnSearch", sid: sid}
             }).done(function (data) {
-                $(".loader").removeClass("show").addClass("hide");
-                $("section.details").removeClass("loading");
+                hideLoadingScreen();
 
                 if (data.studentDetails !== undefined) {
 
@@ -404,15 +396,13 @@ $(function () {
         var studentId = $("#presStudentId").val();
 
 
-        $(".loader").addClass("show").removeClass("hide");
-        $("section.details").addClass("loading");
+        showLoadingScreen();
         $.ajax({
             method: "POST",
             url: "../BatAcademy/FacultyDetailsController",
             data: {task: "deleteStudent", sid: studentId}
         }).done(function (data) {
-            $(".loader").removeClass("show").addClass("hide");
-            $("section.details").removeClass("loading");
+            hideLoadingScreen();
             if (data === "success") {
                 $("#presEnsearchResults").removeClass("show").addClass("hide");
                 $("#presEnUpdatedResults").html("Student has been deleted from records");
@@ -498,15 +488,13 @@ $(function () {
         }
 
         if(firstName.length !== 0 && password.length !== 0 && cpwd === password && phno.length !== 0) {
-            $(".loader").addClass("show").removeClass("hide");
-            $("section.details").addClass("loading");
+            showLoadingScreen();
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/signin",
                 data: {task: "signup", firstName: firstName, lastName: lastName, password: password, phno:phno, gender: gender}
             }).done(function (data) {
-                $(".loader").removeClass("show").addClass("hide");
-                $("section.details").removeClass("loading");
+                hideLoadingScreen();
                 if (data !== 0) {
                     $("#signUpStatus").html("Your student id is: "+ data+". Please use this id next time when you log in.");
                     $("#signUpStatus").addClass("success label");
@@ -527,6 +515,17 @@ $(function () {
         $("#cpwd").removeClass("error");
         $("#phno").removeClass("error");
         $("#signUpStatus").removeClass("success label alert");
+    }
+
+
+    function showLoadingScreen(){
+        $(".loader").removeClass("hide").addClass("show");
+        $("#overlay").addClass("overlay");
+    }
+
+    function hideLoadingScreen() {
+        $(".loader").removeClass("show").addClass("hide");
+        $("#overlay").removeClass("overlay");
     }
 
 }());

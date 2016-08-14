@@ -48,7 +48,7 @@ public class StudentDetailsController extends HttpServlet {
         if (session != null) {
 
             if (session.getAttribute("studentId") != null) {
-                
+
                 int studentId = (Integer) session.getAttribute("studentId");
 
                 StudentDetailsService studentDetailsService = new StudentDetailsService();
@@ -59,24 +59,29 @@ public class StudentDetailsController extends HttpServlet {
 
                 Student student = (Student) studentDetailsService.getStudentDetails(studentId);
 
-                List<Course> courses = studentDetailsService.getRemainingCourses(studentId);
+                List<Course> courses = new ArrayList<Course>();
                 HashMap<Integer, String> facultyMap = facultyDetailsService.getFacultyName();
-                System.out.println(facultyMap.get(2));
+                List<SelectedCoursesBean> selectedCourses = new ArrayList<SelectedCoursesBean>();
 
                 boolean studentRegisteredVal = studentDetailsService.isRegistered(studentId);
                 boolean facultyEnableVal = facultyDetailsService.isEnabled();
 
-                List<SelectedCoursesBean> selectedCourses = studentDetailsService.fetchRegisteredCourses(studentId);
+                if (facultyEnableVal && !studentRegisteredVal) {
+                    courses = studentDetailsService.getRemainingCourses(studentId);
+                    request.setAttribute("courses", courses);
+                } else {
+                    selectedCourses = studentDetailsService.fetchRegisteredCourses(studentId);
+                    request.setAttribute("selectedCourses", selectedCourses);
+                }
 
                 request.setAttribute("student", student);
-                request.setAttribute("courses", courses);
                 request.setAttribute("faculty", facultyMap);
 
                 request.setAttribute("register", studentRegisteredVal);
                 request.setAttribute("enable", facultyEnableVal);
-                request.setAttribute("selectedCourses", selectedCourses);
-
+                
                 requestDispatcher.forward(request, response);
+                
             } else {
                 response.sendRedirect("index.html");
             }

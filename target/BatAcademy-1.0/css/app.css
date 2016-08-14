@@ -87,10 +87,23 @@ footer.mainFooter .inline-list a {
 .modals, .modals label {
     color: #000;
 }
+
 .loader {
     position:absolute;
     left:50%; 
     top:50%;
+    z-index: 1001;
+}
+
+.overlay{
+    opacity:0.8;
+    background-color:#ccc;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
 }
 
 .loader .loadingAnime {
@@ -111,16 +124,6 @@ footer.mainFooter .inline-list a {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-section.loading {
-     /* Make the contents of the body opaque during loading */
-    opacity: 0.5;
-
-    /* Ensures that the transition only runs in one direction */
-    -webkit-transition: opacity 0;
-    transition: opacity 0;
-
 }
 
 

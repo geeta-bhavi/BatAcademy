@@ -60,7 +60,7 @@
                 <div class="searchCont">
                     <form id="searchById" class="large-6 medium-6 columns">
                         <div>
-                            <input name="searchStudentId" type="number" id="searchStudentId" placeholder="Enter Student Id" />
+                            <input name="searchStudentId" type="number" id="searchStudentId" placeholder="Enter Student Id" max="9999" />
                             <select name="searchCourseId" id="searchCourseId">
                                 <c:forEach var="course" items="${courses}">
                                     <option value="${course.getCourseId()}">${course.getCourseName()}</option>
@@ -102,6 +102,8 @@
             </div>
 
         </section>
+
+        <div id="overlay"></div>
         <div class="loader hide"><div class="loadingAnime"></div></div>
 
 

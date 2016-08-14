@@ -57,7 +57,7 @@
                 <div class="presSearchCont">
                     <form id="searchByStudentId" class="large-6 medium-6 columns">
                         <div>
-                            <input name="presStudentId" type="number" id="presStudentId" placeholder="Enter Student Id" />
+                            <input name="presStudentId" type="number" id="presStudentId" placeholder="Enter Student Id" max="9999" />
                         </div>
                         <div>
                             <input type="submit" value="Submit" class="button secondary">
@@ -87,10 +87,9 @@
                 </div>
 
             </div>
-
-
         </section>
-
+        
+        <div id="overlay"></div>
         <div class="loader hide"><div class="loadingAnime"></div></div>
 
         <%@include file="footer.html" %>
