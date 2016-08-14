@@ -82,7 +82,6 @@
                                         <td>${course.getCourseId()}</td>
                                         <td>${course.getCourseName()}</td>
                                         <td>${faculty[course.getFacultyId()]}</td>
-                                        <%--<td>${course.getFacultyId()}</td><td><c:out value="${facultyMap[course.getFacultyId()]}"/></td>--%>
                                         <td>
                                             <a class="addCourse" href="#">
                                                 <img src="images/batman-unsel.png">
@@ -113,7 +112,7 @@
                         </div>
                     </div>
                 </c:when>
-                
+
                 <c:when test="${showCoursesAlreadyRegister==false && fn:length(selectedCourses) gt 0}">
                     <div class="row coursesCont">
                         <div>

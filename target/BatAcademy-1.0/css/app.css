@@ -72,16 +72,16 @@ footer.mainFooter .inline-list a {
 
 /*foundation modals */
 .close-button {
-  position: absolute;
-  color: #8a8a8a;
-  right: 1rem;
-  top: 0.5rem;
-  font-size: 2em;
-  line-height: 1;
-  cursor: pointer; }
-  [data-whatinput='mouse'] .close-button {
+    position: absolute;
+    color: #8a8a8a;
+    right: 1rem;
+    top: 0.5rem;
+    font-size: 2em;
+    line-height: 1;
+    cursor: pointer; }
+[data-whatinput='mouse'] .close-button {
     outline: 0; }
-  .close-button:hover, .close-button:focus {
+.close-button:hover, .close-button:focus {
     color: #0a0a0a; }
 
 .modals, .modals label {
@@ -117,13 +117,13 @@ footer.mainFooter .inline-list a {
 }
 
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 
@@ -226,7 +226,7 @@ table.courseTable tbody tr:nth-child(even) {
     background-color: #4f5457;
 }
 section.details .courseTable {
-   text-align: center;
+    text-align: center;
 }
 section.details .confirm {
     width: 200px;

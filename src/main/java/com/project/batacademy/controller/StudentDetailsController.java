@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,23 +61,25 @@ public class StudentDetailsController extends HttpServlet {
                 Student student = (Student) studentDetailsService.getStudentDetails(studentId);
 
                 List<Course> courses = new ArrayList<Course>();
-                HashMap<Integer, String> facultyMap = facultyDetailsService.getFacultyName();
                 List<SelectedCoursesBean> selectedCourses = new ArrayList<SelectedCoursesBean>();
-
-                boolean studentRegisteredVal = studentDetailsService.isRegistered(studentId);
+                 Map<Integer, String> facultyMap =  new HashMap<>();
+                //boolean studentRegisteredVal = studentDetailsService.isRegistered(studentId);
+                boolean studentRegisteredVal = student.isRegister();
                 boolean facultyEnableVal = facultyDetailsService.isEnabled();
 
                 if (facultyEnableVal && !studentRegisteredVal) {
                     courses = studentDetailsService.getRemainingCourses(studentId);
+                    facultyMap = facultyDetailsService.getFacultyName();
                     request.setAttribute("courses", courses);
+                    request.setAttribute("faculty", facultyMap);
                 } else {
                     selectedCourses = studentDetailsService.fetchRegisteredCourses(studentId);
                     request.setAttribute("selectedCourses", selectedCourses);
                 }
+                
+                
 
                 request.setAttribute("student", student);
-                request.setAttribute("faculty", facultyMap);
-
                 request.setAttribute("register", studentRegisteredVal);
                 request.setAttribute("enable", facultyEnableVal);
                 

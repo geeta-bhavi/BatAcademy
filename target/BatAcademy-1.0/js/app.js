@@ -1,7 +1,7 @@
 $(document).foundation();
 
 
-function logOut(event){
+function logOut(event) {
     event.preventDefault();
 
     $(".loader").removeClass("hide").addClass("show");
@@ -11,13 +11,13 @@ function logOut(event){
         url: "../BatAcademy/signin",
         data: {task: "signout"}
     })
-    .done(function (data) {
-        $(".loader").removeClass("show").addClass("hide");
-        $("section.details").removeClass("loading");
-        if (data === "success") {
-            window.location = '../BatAcademy/index.html';
-        } 
-    });
+            .done(function (data) {
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
+                if (data === "success") {
+                    window.location = '../BatAcademy/index.html';
+                }
+            });
 }
 
 $(function () {
@@ -236,7 +236,7 @@ $(function () {
         var cid = $("#searchCourseId option:selected").val();
 
         if (sid.length !== 0) {
-            
+
             showLoadingScreen();
 
             $.ajax({
@@ -333,15 +333,15 @@ $(function () {
             data: {task: "enableRegistrationForNewSem", enable: checked}
         }).done(function (data) {
             hideLoadingScreen();
-            if(data === "success") {
-                if(checked) {
+            if (data === "success") {
+                if (checked) {
                     $("#presidentUpdateStatus").html("Regsitration enabled successfully");
                 } else {
                     $("#presidentUpdateStatus").html("Regsitration disabled successfully");
                 }
 
                 $("#presidentUpdateStatus").addClass("success label");
-                
+
             } else {
                 $("#presidentUpdateStatus").html("There was an error updating the data. Contact admin.");
                 $("#presidentUpdateStatus").addClass("alert label");
@@ -462,17 +462,17 @@ $(function () {
         var phno = $("#phno").val();
         var gender = $("#batSignUp input[name=gender]:checked").val();
 
-        if(firstName.length === 0){
+        if (firstName.length === 0) {
             showError("Enter First Name", "errorSignUp");
             $("#firstName").addClass("error");
         }
 
-        if(password.length === 0){
+        if (password.length === 0) {
             showError("Enter password", "errorSignUp");
             $("#password").addClass("error");
         }
 
-        if(cpwd.length === 0){
+        if (cpwd.length === 0) {
             showError("Enter confirm password", "errorSignUp");
             $("#cpwd").addClass("error");
         }
@@ -482,21 +482,21 @@ $(function () {
             $("#cpwd").addClass("error");
         }
 
-        if(phno.length === 0){
+        if (phno.length === 0) {
             showError("Enter phone number", "errorSignUp");
             $("#phno").addClass("error");
         }
 
-        if(firstName.length !== 0 && password.length !== 0 && cpwd === password && phno.length !== 0) {
+        if (firstName.length !== 0 && password.length !== 0 && cpwd === password && phno.length !== 0) {
             showLoadingScreen();
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/signin",
-                data: {task: "signup", firstName: firstName, lastName: lastName, password: password, phno:phno, gender: gender}
+                data: {task: "signup", firstName: firstName, lastName: lastName, password: password, phno: phno, gender: gender}
             }).done(function (data) {
                 hideLoadingScreen();
                 if (data !== 0) {
-                    $("#signUpStatus").html("Your student id is: "+ data+". Please use this id next time when you log in.");
+                    $("#signUpStatus").html("Your student id is: " + data + ". Please use this id next time when you log in.");
                     $("#signUpStatus").addClass("success label");
                 } else {
                     $("#signUpStatus").html("There was some error in the request. Please try again later.");
@@ -505,7 +505,7 @@ $(function () {
             });
 
         }
-        
+
     }
 
     function clearSignUpError() {
@@ -518,7 +518,7 @@ $(function () {
     }
 
 
-    function showLoadingScreen(){
+    function showLoadingScreen() {
         $(".loader").removeClass("hide").addClass("show");
         $("#overlay").addClass("overlay");
     }

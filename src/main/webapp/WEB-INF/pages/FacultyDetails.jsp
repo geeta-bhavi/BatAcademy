@@ -46,14 +46,14 @@
                             <li><span class="batLabel">Phone Number:</span><span class="info">${faculty.getPhno()}</span></li>
                         </ul>
                     </div>
-                    
+
                     <div class="large-6 medium-6 columns">
                         <ul class="facultyDetail">
 
                             <c:forEach var="course" items="${courses}">
                                 <li><span class="batLabel">Course Id:</span><span class="info courseId">${course.getCourseId()}</span></li>
                                 <li><span class="batLabel">Course Name:</span><span class="info">${course.getCourseName()}</li>
-                            </c:forEach>
+                                </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                                 </tr>
                             </table>
 
-                        <input type="submit" class="button secondary" id="updateActivityBtn" value="Confirm changes">
+                            <input type="submit" class="button secondary" id="updateActivityBtn" value="Confirm changes">
                         </form>
                     </div>
 

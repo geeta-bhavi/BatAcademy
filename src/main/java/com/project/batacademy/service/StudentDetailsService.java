@@ -64,10 +64,6 @@ public class StudentDetailsService {
         studentHelper.setRegistered(userId);
     }
 
-    /*public List<SelectedCoursesBean> getRegisteredCourses(int userId){
-        
-        return regCourseHelper.fetchRegisteredCourses(userId);
-    }*/
     public List fetchRegisteredCourses(int studentId) {
         regCourseHelper = new RegisteredCoursesHelper();
         facultyHelper = new FacultyHelper();
@@ -86,9 +82,8 @@ public class StudentDetailsService {
                 selectedCourse.setCompleted(registeredCourse.isCompleted());
                 selectedCourse.setFacultyName(facultyHelper.getFacultyNameForAGivenCourseID(CourseID));
 
-                System.out.println("faculty" + facultyHelper.getFacultyNameForAGivenCourseID(CourseID));
-                System.out.println("faculty name" + selectedCourse.getFacultyName());
-
+                //System.out.println("faculty" + facultyHelper.getFacultyNameForAGivenCourseID(CourseID));
+                //System.out.println("faculty name" + selectedCourse.getFacultyName());
                 if (null != activityObj) {
                     selectedCourse.setA1(activityObj.getA1());
                     selectedCourse.setA2(activityObj.getA2());

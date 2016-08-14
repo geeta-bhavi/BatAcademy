@@ -18,7 +18,6 @@ import java.util.List;
 public class FacultyDetailsService {
 
     private FacultyHelper facultyHelper;
-    private HashMap<Integer, String> facultyMap = new HashMap<>();
     private CourseHelper courseHelper;
     private RegisteredCoursesHelper regCourseHelper;
     private StudentHelper studentHelper;
@@ -29,6 +28,7 @@ public class FacultyDetailsService {
 
     public HashMap<Integer, String> getFacultyName() {
         facultyHelper = new FacultyHelper();
+        HashMap<Integer, String> facultyMap = new HashMap<>();
         List<Faculty> facultyList = facultyHelper.getFacultyDetails();
         System.out.println("print faculty " + facultyList.toString());
 

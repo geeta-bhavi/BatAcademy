@@ -58,9 +58,8 @@ public class FacultyHelper {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Faculty");
-            //q.setParameter("faculty", faculty);
             faculty = (List<Faculty>) q.list();
-            System.out.println("getFacultyDetails " + q.list().toString());
+            //System.out.println("getFacultyDetails " + q.list().toString());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,13 +91,14 @@ public class FacultyHelper {
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("select F.firstName from Course C, Faculty F WHERE C.facultyId = F.facultyId and C.courseId=" + courseID);
-
+            Query q = session.createSQLQuery("select F.firstName from Course C, Faculty F WHERE C.facultyId = F.facultyId and C.courseId=" + courseID);
+            
+            facultyName = (String) q.uniqueResult();
             //System.out.println(" query " + q.getQueryString().toString());
-            for (String facultyFirstName : (List<String>) q.list()) {
-                facultyName = facultyFirstName;
-            }
-            System.out.println(" First Name  " + facultyName);
+//            for (String facultyFirstName : (List<String>) q.list()) {
+//                facultyName = facultyFirstName;
+//            }
+//            System.out.println(" First Name  " + facultyName);
 
         } catch (Exception e) {
             e.printStackTrace();
