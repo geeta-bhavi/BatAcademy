@@ -2,7 +2,6 @@ com/project/batacademy/service/FacultyDetailsService.class
 com/project/batacademy/service/StudentDetailsService.class
 com/project/batacademy/controller/FacultyDetailsController.class
 com/project/batacademy/service/ActivityService.class
-com/project/batacademy/controller/SelectedCoursesBean.class
 com/project/batacademy/helper/FacultyHelper.class
 com/project/batacademy/model/ActivityId.class
 com/project/batacademy/helper/ActivityHelper.class
@@ -19,3 +18,4 @@ com/project/batacademy/model/Faculty.class
 com/project/batacademy/controller/SignInServlet.class
 com/project/batacademy/helper/CourseHelper.class
 com/project/batacademy/helper/RegisteredCoursesHelper.class
+com/project/batacademy/model/SelectedCoursesBean.class

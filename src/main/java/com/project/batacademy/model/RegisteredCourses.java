@@ -6,17 +6,17 @@ package com.project.batacademy.model;
  */
 public class RegisteredCourses implements java.io.Serializable {
 
-     private RegisteredCoursesId id;
-     private String courseName;
-     private boolean completed;
+    private RegisteredCoursesId id;
+    private String courseName;
+    private boolean completed;
 
     public RegisteredCourses() {
     }
 
     public RegisteredCourses(RegisteredCoursesId id, String courseName, boolean completed) {
-       this.id = id;
-       this.courseName = courseName;
-       this.completed = completed;
+        this.id = id;
+        this.courseName = courseName;
+        this.completed = completed;
     }
 
     public RegisteredCoursesId getId() {
@@ -38,7 +38,7 @@ public class RegisteredCourses implements java.io.Serializable {
     public boolean isCompleted() {
         return this.completed;
     }
-    
+
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }

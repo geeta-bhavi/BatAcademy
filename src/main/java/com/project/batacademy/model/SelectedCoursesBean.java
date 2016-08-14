@@ -5,14 +5,12 @@
  */
 package com.project.batacademy.model;
 
-import com.project.batacademy.controller.*;
-
 /**
  *
  * @author swathi
  */
 public class SelectedCoursesBean {
-    
+
     private int courseID;
     private String courseName;
     private int a1;
@@ -20,7 +18,7 @@ public class SelectedCoursesBean {
     private int a3;
     private String facultyName;
     private boolean completed;
-    
+
     public int getCourseID() {
         return courseID;
     }
@@ -68,16 +66,17 @@ public class SelectedCoursesBean {
     public void setFacultyName(String facultyName) {
         this.facultyName = facultyName;
     }
-    
+
     public boolean isCompleted() {
         return completed;
     }
-    
-    public String getCourseCompletedStatus(){
-        if(this.completed)
+
+    public String getCourseCompletedStatus() {
+        if (this.completed) {
             return "Yes";
-        else 
+        } else {
             return "No";
+        }
     }
 
     public void setCompleted(boolean completed) {

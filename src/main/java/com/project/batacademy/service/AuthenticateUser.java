@@ -22,17 +22,17 @@ public class AuthenticateUser {
         Student student = (Student) studentHelper.getStudentDetails(userId, pwd);
         if (student != null) {
             return "student";
-        }       
-        return "error";        
+        }
+        return "error";
     }
-    
+
     public String checkIfFacultyExists(int userId, String pwd) {
         facultyHelper = new FacultyHelper();
         Faculty faculty = (Faculty) facultyHelper.getFacultyDetails(userId, pwd);
         if (faculty != null) {
             return "faculty";
         }
-        return "error";  
+        return "error";
     }
 
 }

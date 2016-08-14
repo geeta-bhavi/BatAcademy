@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.project.batacademy.service;
 
 import com.project.batacademy.helper.ActivityHelper;
@@ -31,7 +26,7 @@ public class ActivityService {
         String updated = activityHelper.updateActivity(studentId, courseId, a1, a2, a3);
         return updated;
     }
-    
+
     public List<Activity> sumOfActivities(List<RegisteredCoursesId> courseIds) {
         ActivityHelper activityHelper = new ActivityHelper();
         List<Activity> activities = activityHelper.sumOfActivities(courseIds);

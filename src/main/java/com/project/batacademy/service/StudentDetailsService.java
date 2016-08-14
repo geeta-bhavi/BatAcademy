@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.project.batacademy.service;
 
 import com.project.batacademy.model.SelectedCoursesBean;
@@ -24,7 +19,7 @@ import java.util.Map;
 
 /**
  *
- * @author geeta
+ * @author geeta, swathi
  */
 public class StudentDetailsService {
 
@@ -181,7 +176,7 @@ public class StudentDetailsService {
                     float cgpa = getStudentCGPA(key);
                     float value = entry.getValue();
                     float finalCGPA = value;
-                    if(cgpa > 0) {
+                    if (cgpa > 0) {
                         finalCGPA = (cgpa + value) / 2.0f;
                     }
                     updateStudentCGPA(key, finalCGPA);

@@ -9,12 +9,21 @@
         <location>/HandleError.jsp</location>
     </error-page>
 
-    <servlet>
-      <servlet-name>signup</servlet-name>
-      <jsp-file>/WEB-INF/pages/SignUp.jsp</jsp-file>
- 	</servlet>
-	 <servlet-mapping>
-	      <servlet-name>signup</servlet-name>
-	      <url-pattern>/signup</url-pattern>
-	 </servlet-mapping>
+	<servlet>
+		<servlet-name>error</servlet-name>
+		<jsp-file>/WEB-INF/pages/HandleError.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/HandleError</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>signup</servlet-name>
+		<jsp-file>/WEB-INF/pages/SignUp.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>signup</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
 </web-app>

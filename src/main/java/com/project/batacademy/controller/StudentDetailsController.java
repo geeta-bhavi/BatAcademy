@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.project.batacademy.controller;
 
 import com.project.batacademy.helper.RegisteredCoursesHelper;
@@ -30,7 +25,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author geeta
+ * @author swathi, geeta
  */
 @WebServlet(name = "StudentDetailsController", urlPatterns = {"/StudentDetailsController"})
 public class StudentDetailsController extends HttpServlet {

@@ -96,7 +96,7 @@ $(function () {
         $("#" + id).removeClass("hide").addClass("show");
         $("#" + id + " input[type='radio']").removeAttr("checked");
         setTimeout(function () {
-            window.location = '../BatAcademy/HandleError.jsp';
+            window.location = '../BatAcademy/HandleError';
         }, 20000);
     }
 
@@ -109,10 +109,10 @@ $(function () {
             } else if (id === "bat2" && radioValue === "42") {
                 window.location = '../BatAcademy/signup';
             } else {
-                window.location = '../BatAcademy/HandleError.jsp';
+                window.location = '../BatAcademy/HandleError';
             }
         } else {
-            window.location = '../BatAcademy/HandleError.jsp';
+            window.location = '../BatAcademy/HandleError';
         }
 
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.project.batacademy.service;
 
 import java.util.HashMap;
@@ -58,7 +53,7 @@ public class FacultyDetailsService {
     public List<Course> getCoursesForFaculty(int userId) {
         courseHelper = new CourseHelper();
         List<Course> courses = courseHelper.getCoursesForFaculty(userId);
-        
+
         return courses;
     }
 

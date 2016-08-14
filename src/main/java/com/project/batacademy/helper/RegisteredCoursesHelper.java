@@ -10,7 +10,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author geeta
+ * @author geeta, swathi
  */
 public class RegisteredCoursesHelper {
 
@@ -73,7 +73,7 @@ public class RegisteredCoursesHelper {
     }
 
     public List getRegisteredCoursesForStudent() {
-        
+
         List<RegisteredCourses> registeredCourses = null;
         Transaction tx = null;
         try {

@@ -9,6 +9,7 @@
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/model/Activity.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/service/ActivityService.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/model/Student.java
+/Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/model/SelectedCoursesBean.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/service/FacultyDetailsService.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/service/StudentDetailsService.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/helper/ActivityHelper.java
@@ -16,6 +17,5 @@
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/helper/CourseHelper.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/model/RegisteredCourses.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/helper/RegisteredCoursesHelper.java
-/Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/controller/SelectedCoursesBean.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/model/Faculty.java
 /Users/geeta/NetBeansProjects/BatAcademy/src/main/java/com/project/batacademy/service/AuthenticateUser.java

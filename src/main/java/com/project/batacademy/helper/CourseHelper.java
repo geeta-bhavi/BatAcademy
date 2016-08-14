@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.project.batacademy.helper;
 
 import com.project.batacademy.model.Course;
@@ -26,20 +21,19 @@ public class CourseHelper {
     public List getRemainingCourses(List courseIds) {
         List<Course> courses = new ArrayList<Course>(courseIds);
         Transaction tx = null;
- 
+
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q;
-            if(courseIds.size()>0)
-            {
+            if (courseIds.size() > 0) {
                 q = session.createQuery("from Course where CourseID NOT IN(:courses)");
                 q.setParameterList("courses", courseIds);
-            }
-            else 
+            } else {
                 q = session.createQuery("from Course");
-                
-                System.out.println(" query " + q.getQueryString().toString());
+            }
+
+            System.out.println(" query " + q.getQueryString().toString());
             courses = (List<Course>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,15 +42,15 @@ public class CourseHelper {
         }
         return courses;
     }
-   
+
     public List getCoursesForFaculty(int facultyId) {
         List<Course> courses = new ArrayList<Course>();
         Transaction tx = null;
- 
+
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("from Course where FacultyId="+facultyId);
+            Query q = session.createQuery("from Course where FacultyId=" + facultyId);
             courses = (List<Course>) q.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +58,7 @@ public class CourseHelper {
             tx.commit();
         }
         return courses;
-        
+
     }
 
 }
