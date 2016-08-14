@@ -5,12 +5,11 @@
  */
 package com.project.batacademy.controller;
 
-import com.project.batacademy.helper.CourseHelper;
 import com.project.batacademy.helper.RegisteredCoursesHelper;
 import com.project.batacademy.model.Course;
-import com.project.batacademy.model.Faculty;
 import com.project.batacademy.model.RegisteredCourses;
 import com.project.batacademy.model.RegisteredCoursesId;
+import com.project.batacademy.model.SelectedCoursesBean;
 import com.project.batacademy.model.Student;
 import com.project.batacademy.service.FacultyDetailsService;
 import com.project.batacademy.service.StudentDetailsService;
@@ -35,7 +34,7 @@ import org.json.JSONObject;
  */
 @WebServlet(name = "StudentDetailsController", urlPatterns = {"/StudentDetailsController"})
 public class StudentDetailsController extends HttpServlet {
-    
+
     private final String CONTENT_TYPE = "text/html";
 
     /**
@@ -52,43 +51,47 @@ public class StudentDetailsController extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
-            
-            StudentDetailsService studentDetailsService = new StudentDetailsService();
-            RegisteredCoursesHelper regCourseHelper = new RegisteredCoursesHelper();
-            FacultyDetailsService facultyDetailsService=new FacultyDetailsService();
-            
-            CourseHelper courseHelper = new CourseHelper();
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("StudentDetails.jsp");
-            int studentId = (Integer) session.getAttribute("studentId");
-            Student student = (Student) studentDetailsService.getStudentDetails(studentId);
-            
-            List<Integer> takenCourses = regCourseHelper.getCourseIdGivenStudentId(studentId);
-            List<Course> courses = courseHelper.getRemainingCourses(takenCourses);
-            HashMap<Integer,String> facultyMap = facultyDetailsService.getFacultyName();
-            System.out.println(facultyMap.get(2));
-            
-            boolean studentRegisteredVal=studentDetailsService.isRegistered(studentId);
-            boolean facultyEnableVal=facultyDetailsService.isEnabled();
-            
-            List<SelectedCoursesBean> selectedCourses = studentDetailsService.fetchRegisteredCourses(studentId);
-            
-            request.setAttribute("student", student);
-            request.setAttribute("courses", courses);
-            request.setAttribute("faculty", facultyMap);
-            
-            request.setAttribute("register",studentRegisteredVal);
-            request.setAttribute("enable", facultyEnableVal);
-            request.setAttribute("selectedCourses", selectedCourses);
-            
-            requestDispatcher.forward(request, response);
+
+            if (session.getAttribute("studentId") != null) {
+                
+                int studentId = (Integer) session.getAttribute("studentId");
+
+                StudentDetailsService studentDetailsService = new StudentDetailsService();
+
+                FacultyDetailsService facultyDetailsService = new FacultyDetailsService();
+
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/StudentDetails.jsp");
+
+                Student student = (Student) studentDetailsService.getStudentDetails(studentId);
+
+                List<Course> courses = studentDetailsService.getRemainingCourses(studentId);
+                HashMap<Integer, String> facultyMap = facultyDetailsService.getFacultyName();
+                System.out.println(facultyMap.get(2));
+
+                boolean studentRegisteredVal = studentDetailsService.isRegistered(studentId);
+                boolean facultyEnableVal = facultyDetailsService.isEnabled();
+
+                List<SelectedCoursesBean> selectedCourses = studentDetailsService.fetchRegisteredCourses(studentId);
+
+                request.setAttribute("student", student);
+                request.setAttribute("courses", courses);
+                request.setAttribute("faculty", facultyMap);
+
+                request.setAttribute("register", studentRegisteredVal);
+                request.setAttribute("enable", facultyEnableVal);
+                request.setAttribute("selectedCourses", selectedCourses);
+
+                requestDispatcher.forward(request, response);
+            } else {
+                response.sendRedirect("index.html");
+            }
+
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("index.html");
-            rd.forward(request, response);
+            response.sendRedirect("index.html");
         }
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -102,7 +105,7 @@ public class StudentDetailsController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -117,45 +120,44 @@ public class StudentDetailsController extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType(CONTENT_TYPE);
         ArrayList<RegisteredCourses> registeredCoursesList = new ArrayList<RegisteredCourses>();
-        
+
         String json[] = request.getParameterValues("courses");
-        for(String str : json) {
+        for (String str : json) {
             RegisteredCourses registeredCourse = new RegisteredCourses();
             JSONObject obj = new JSONObject(str);
             String studentId = obj.getString("studentId");
-            System.out.println("studentId "+studentId);
+            System.out.println("studentId " + studentId);
             JSONArray arr = obj.getJSONArray("courseList");
             int arrSize = arr.length();
             for (int i = 0; i < arr.length(); i++) {
-                RegisteredCoursesId registeredCourseId=new RegisteredCoursesId();
-                
+                RegisteredCoursesId registeredCourseId = new RegisteredCoursesId();
+
                 String courseId = arr.getJSONObject(i).getString("courseId");
                 String courseName = arr.getJSONObject(i).getString("coursename");
-                System.out.println("courseId "+courseId);
-                System.out.println("courseName "+courseName);
-                
+                System.out.println("courseId " + courseId);
+                System.out.println("courseName " + courseName);
+
                 registeredCourseId.setCourseId(Integer.parseInt(courseId));
                 registeredCourseId.setStudentId(Integer.parseInt(studentId));
-                
+
                 registeredCourse.setId(registeredCourseId);
                 registeredCourse.setCourseName(courseName);
-                
+
                 registeredCoursesList.add(registeredCourse);
                 RegisteredCoursesHelper registeredCoursesHelper = new RegisteredCoursesHelper();
                 registeredCoursesHelper.updateRegisteredCourses(registeredCoursesList);
-            
+
             }
-            
-            if(arrSize > 0)
-            {
+
+            if (arrSize > 0) {
                 StudentDetailsService studentDetailsService = new StudentDetailsService();
                 studentDetailsService.setRegistered(Integer.parseInt(studentId));
             }
-            
+
             out.write("success");
-        
+
         }
-        
+
         out.close();
 
     }
@@ -168,6 +170,6 @@ public class StudentDetailsController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

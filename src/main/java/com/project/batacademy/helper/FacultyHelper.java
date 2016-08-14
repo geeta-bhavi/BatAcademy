@@ -5,8 +5,6 @@
  */
 package com.project.batacademy.helper;
 
-import com.project.batacademy.model.Activity;
-import com.project.batacademy.model.Course;
 import com.project.batacademy.model.Faculty;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +24,10 @@ public class FacultyHelper {
     }
 
     public Object getFacultyDetails(int facultyId) {
-        /*pass pwd later when column is added*/
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         Object faculty = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Faculty where facultyId =" + facultyId);
             faculty = q.uniqueResult();
@@ -43,13 +40,12 @@ public class FacultyHelper {
     }
 
     public Object getFacultyDetails(int facultyId, String pwd) {
-        /*pass pwd later when column is added*/
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         Object faculty = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("from Faculty where facultyId =" + facultyId + " and Password =\"" + pwd + "\"");
+            Query q = session.createQuery("from Faculty where facultyId =" + facultyId + " and Password ='" + pwd + "'");
             faculty = q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,11 +56,11 @@ public class FacultyHelper {
     }
 
     public List getFacultyDetails() {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
         List<Faculty> faculty = new ArrayList<Faculty>();
         //Object faculty = null;
         Transaction tx = null;
         try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query q = session.createQuery("from Faculty");
             //q.setParameter("faculty", faculty);
@@ -80,13 +76,12 @@ public class FacultyHelper {
     }
 
     public boolean getEnableValue() {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = session.beginTransaction();
-        boolean value = false;
+        Transaction tx = null;
         Faculty faculty = null;
         try {
-            String desig = "'PRESIDENT'";
-            Query q = session.createQuery("from Faculty where Designation ="+desig);
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Faculty where Designation ='PRESIDENT'");
             faculty = (Faculty) q.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,27 +90,48 @@ public class FacultyHelper {
         }
         return faculty.isEnable();
     }
-    
-    public String getFacultyNameForAGivenCourseID(int courseID){
+
+    public String getFacultyNameForAGivenCourseID(int courseID) {
         Transaction tx = null;
-        String facultyName=null;
+        String facultyName = null;
         try {
             this.session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
-            Query q = session.createQuery("select F.firstName from Course C, Faculty F WHERE C.facultyId = F.facultyId and C.courseId="+courseID);
-                
+            Query q = session.createQuery("select F.firstName from Course C, Faculty F WHERE C.facultyId = F.facultyId and C.courseId=" + courseID);
+
             //System.out.println(" query " + q.getQueryString().toString());
-            for(String facultyFirstName: (List<String>) q.list())
-            {
+            for (String facultyFirstName : (List<String>) q.list()) {
                 facultyName = facultyFirstName;
             }
-            System.out.println(" First Name  " + facultyName );
-            
+            System.out.println(" First Name  " + facultyName);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             tx.commit();
         }
         return facultyName;
+    }
+
+    public String updateEnableColumn(boolean enable) {
+        String updated = "error";
+        Transaction tx = null;
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("update Faculty set enable = :enable where facultyId = 1");
+            q.setParameter("enable", enable);
+            q.executeUpdate();
+            updated = "success";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            tx.commit();
+        }
+
+        return updated;
+
     }
 }

@@ -5,11 +5,8 @@
  */
 package com.project.batacademy.helper;
 
-import com.project.batacademy.service.*;
 import com.project.batacademy.model.Course;
-import com.project.batacademy.model.Faculty;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,7 +24,7 @@ public class CourseHelper {
     }
 
     public List getRemainingCourses(List courseIds) {
-        List<Course> courses = new ArrayList<Course>();
+        List<Course> courses = new ArrayList<Course>(courseIds);
         Transaction tx = null;
  
         try {
@@ -51,7 +48,23 @@ public class CourseHelper {
         }
         return courses;
     }
-    
-    
+   
+    public List getCoursesForFaculty(int facultyId) {
+        List<Course> courses = new ArrayList<Course>();
+        Transaction tx = null;
+ 
+        try {
+            this.session = HibernateUtil.getSessionFactory().getCurrentSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Course where FacultyId="+facultyId);
+            courses = (List<Course>) q.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.commit();
+        }
+        return courses;
+        
+    }
 
 }

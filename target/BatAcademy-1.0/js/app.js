@@ -4,14 +4,22 @@ $(function () {
 
 
     /* register functions */
-    $("#batSignIn").on("submit", batHandleSignIn);
     $(window).on("load resize", batHandleLoad);
     $(window).on("open.zf.reveal", batshowQuiz);
-    $(".batmods").on("click", batSubmitQuiz);
-    $("#userId").on("keypress", removeErrorClass);
-    $("#userPasssword").on("keypress", removeErrorClass);
+    $("#batSignIn").on("submit", batHandleSignIn); /* on sign-in submit of index */
+    $(".batmods").on("click", batSubmitQuiz); /*quiz submission on click of radio buttons */
+    $("#userId").on("keypress", removeErrorClass); /*remove error on sign-in page when user starts typing*/
+    $("#userPasssword").on("keypress", removeErrorClass); /*remove error on sign-in page when user starts typing*/
     $(".addCourse").on("click", createCourseList);
     $(".confirm").on("click", showCourseList);
+    $("#searchById").on("submit", batSearchById); /* searching student by id and the faculty courseId to update/view activity score */
+    $("#searchStudentId").on("keypress", removeErrorClass); /* remove error when faculty starts typing again */
+    $("#searchCourseId").on("keypress", removeErrorClass);/* remove error when faculty starts typing again */
+    $("#updateActivity").on("submit", updateActivity); /* update activity scores after faculty confirms scores */
+    $("#enableReg").on("change", enableRegistrationForNewSem);/* president has checked enable button */
+    $("#searchByStudentId").on("submit", searchStudent); /* president search to delete student */
+    $("#deleteStudent").on("click", deleteStudent);
+    $("#batSignUp").on("submit", signUp); /* sign up*/
 
     /* functions */
     function batHandleLoad() {
@@ -31,7 +39,7 @@ $(function () {
     function batHandleSignIn(event) {
         event.preventDefault();
         /* clear errors */
-        clearError();
+        clearLandingError();
 
 
         var id = $("#userId").val();
@@ -44,14 +52,14 @@ $(function () {
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/signin",
-                data: {id: id, password: pwd, userType: type}
+                data: {task: "signin", id: id, password: pwd, userType: type}
             })
                     .done(function (data) {
                         $(".loader").removeClass("show").addClass("hide");
                         $("section.landing").removeClass("loading");
                         if (data === "error") {
-                            clearError();
-                            showError("You have either entered wrong Id or Password");
+                            clearLandingError();
+                            showError("You have either entered wrong Id or Password", "error");
                         } else if (data === "student") {
                             window.location = '../BatAcademy/StudentDetailsController';
                         } else if (data === "faculty") {
@@ -61,25 +69,24 @@ $(function () {
         } else {
 
             if (id.length === 0) {
-                showError("Id field is empty");
+                showError("Id field is empty", "error");
                 $("#userId").addClass('error');
             }
             if (pwd.length == 0) {
-                showError("Password field is empty");
+                showError("Password field is empty", "error");
                 $("#userPasssword").addClass('error');
             }
 
         }
     }
 
-    function showError(errorTxt) {
+    function showError(errorTxt, errorDiv) {
         var ulEle = $("#errorCont");
         if (ulEle.length === 0) {
-            ulEle = $("<ul id='errorCont'></ul>");         
+            ulEle = $("<ul id='errorCont'></ul>");
         }
         ulEle.append("<li>" + errorTxt + "</li>");
-        $("#error").html(ulEle);
-
+        $("#" + errorDiv).html(ulEle);
     }
 
     function batshowQuiz() {
@@ -98,9 +105,9 @@ $(function () {
         var radioValue = $("input[name='" + id + "']:checked").val();
         if (radioValue) {
             if (id === "bat1" && radioValue === "3") {
-                window.location = '../BatAcademy/SignUp.jsp';
+                window.location = '../BatAcademy/signup';
             } else if (id === "bat2" && radioValue === "42") {
-                window.location = '../BatAcademy/SignUp.jsp';
+                window.location = '../BatAcademy/signup';
             } else {
                 window.location = '../BatAcademy/HandleError.jsp';
             }
@@ -110,55 +117,46 @@ $(function () {
 
     }
 
-    function createCourseList(event){
+    function createCourseList(event) {
         event.preventDefault();
         $(this).find('img').toggle();
         var parent = $(this).parent();
         var parentParent = $(this).parent().parent();
-        var table = $("#selectedCousesTable");
         var list = $("#courseList");
 
 
         $("#error").removeClass("show").addClass("hide");
         parentParent.toggleClass("selected");
 
-        if(list.find(".selected").length > 2) {
+        if (list.find(".selected").length > 2) {
             $("#error").removeClass("hide").addClass("show");
-            // if(parentParent.hasClass("selected")) {
-            //     var tr = $("<tr></tr>");
-            //     tr.append("<td>"+parentParent.data("cid")+"</td>");
-            //     tr.append("<td>"+parentParent.data("cname")+"</td>");
-            //     tr.append("<td>"+parentParent.data("faculty")+"</td>");
-            //     tr.append("<td></td>");
-            //     tr.append("<td></td>");
-            //     tr.append("<td></td>");
-
-            //     table.append(tr);
-            // }
         }
-        
+
     }
 
-    function showCourseList(event){
+    function showCourseList(event) {
         event.preventDefault();
         var tr = $("#courseList").find("tr.selected");
-        
-        if(tr.length >0 && tr.length <= 2 ) {
+
+        if (tr.length > 0 && tr.length <= 2) {
+
+            $(".loader").removeClass("hide").addClass("show");
+            $("section.details").addClass("loading");
 
             var list = [];
             var courses = {
                 "studentId": $("#studentId").html(),
-                "courseList" : []
+                "courseList": []
             };
 
-            $.each( tr, function( key, value ) {
+            $.each(tr, function (key, value) {
                 var cid = value.attributes.getNamedItem("data-cid").value;
                 var cname = value.attributes.getNamedItem("data-cname").value;
                 var faculty = value.attributes.getNamedItem("data-faculty").value;
                 var tr = $("<tr></tr>");
-                tr.append("<td>"+cid+"</td>");
-                tr.append("<td>"+cname+"</td>");
-                tr.append("<td>"+faculty+"</td>");
+                tr.append("<td>" + cid + "</td>");
+                tr.append("<td>" + cname + "</td>");
+                tr.append("<td>" + faculty + "</td>");
                 tr.append("<td></td>");
                 tr.append("<td></td>");
                 tr.append("<td></td>");
@@ -166,24 +164,25 @@ $(function () {
                 $("#selectedCousesTable").append(tr);
 
                 var course = {
-                            "courseId": cid,
-                            "coursename": cname
-                        }
+                    "courseId": cid,
+                    "coursename": cname
+                }
 
-                list.push(course);   
+                list.push(course);
             });
 
 
             courses.courseList = list;
-            
+
 
             $.ajax({
                 method: "POST",
                 url: "../BatAcademy/StudentDetailsController",
-                data: {courses: JSON.stringify(courses) }
+                data: {courses: JSON.stringify(courses)}
             }).done(function (data) {
-
-                if(data === "success") {
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
+                if (data === "success") {
                     $("#courseList").removeClass("show").addClass("hide");
                     $("#selectedCouses").removeClass("hide").addClass("show");
                     $("#confirmation").hide();
@@ -209,11 +208,229 @@ $(function () {
         }
     }
 
+
+    function batSearchById(event) {
+        event.preventDefault();
+
+        clearSearchError();
+        clearSearchdata();
+
+        var sid = $("#searchStudentId").val();
+        var cid = $("#searchCourseId option:selected").val();
+
+        if (sid.length !== 0) {
+            $(".loader").removeClass("hide").addClass("show");
+            $("section.details").addClass("loading");
+            $.ajax({
+                method: "POST",
+                url: "../BatAcademy/FacultyDetailsController",
+                data: {task: "search", sid: sid, cid: cid}
+            }).done(function (data) {
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
+                if (data.activities !== undefined) {
+                    var value = data.activities;
+                    /* if course is not completed then only allow faculty to edit */
+                    var isCourseCompleted = value.courseCompleted;
+                    if (isCourseCompleted) {
+                        $("#updateActivityBtn").hide();
+                    } else {
+                        $("#updateActivityBtn").show();
+                    }
+                    var inputlist = $(".allowEdit");
+                    $.each(inputlist, function (index, value) {
+                        $(this).prop("disabled", isCourseCompleted);
+                    });
+                    $("#enterStudentId").html(sid);
+                    $("#enterCourseId").html(cid);
+                    $("#enterActivity1").val(value.Activity1);
+                    $("#enterActivity2").val(value.Activity2);
+                    $("#enterActivity3").val(value.Activity3);
+
+                    $("#searchResults").removeClass("hide").addClass("show");
+
+
+                } else {
+                    showError("Either you have entered wrong id or the student has not taken any of your courses.", "searchError");
+                    $("#searchResults").removeClass("show").addClass("hide");
+                }
+
+            });
+        } else {
+            showError("Id field is empty", "searchError");
+            $("#searchStudentId").addClass('error');
+        }
+    }
+
+    function clearSearchdata() {
+        $("#enterStudentId").html("");
+        $("#enterCourseId").html("");
+        $("#enterActivity1").val("");
+        $("#enterActivity2").val("");
+        $("#enterActivity3").val("");
+        $("#updatedResults").html("");
+        $("#updatedResults").removeClass("success alert label");
+    }
+
+    function updateActivity(event) {
+        event.preventDefault();
+        var studentId = $("#enterStudentId").html();
+        var courseId = $("#enterCourseId").html();
+        var activity1 = $("#enterActivity1").val();
+        var activity2 = $("#enterActivity2").val();
+        var activity3 = $("#enterActivity3").val();
+
+        $(".loader").addClass("show").removeClass("hide");
+        $("section.details").addClass("loading");
+        $.ajax({
+            method: "POST",
+            url: "../BatAcademy/FacultyDetailsController",
+            data: {task: "update", sid: studentId, cid: courseId, activity1: activity1, activity2: activity2, activity3: activity3}
+        }).done(function (data) {
+            $(".loader").removeClass("show").addClass("hide");
+            $("section.details").removeClass("loading");
+            if (data === "success") {
+                $("#searchResults").removeClass("show").addClass("hide");
+                $("#updatedResults").html("Data has been updated");
+                $("#updatedResults").addClass("success label");
+            } else {
+                $("#searchResults").removeClass("show").addClass("hide");
+                $("#updatedResults").html("There was an error updating the data. Contact admin.");
+                $("#updatedResults").addClass("alert label");
+            }
+        });
+    }
+
+
+    function enableRegistrationForNewSem() {
+
+        var checked = $(this).is(":checked");
+
+        /*claesr status div*/
+        $("#presidentUpdateStatus").html("");
+        $("#presidentUpdateStatus").removeClass("success alert label");
+
+        $(".loader").addClass("show").removeClass("hide");
+        $("section.details").addClass("loading");
+        $.ajax({
+            method: "POST",
+            url: "../BatAcademy/FacultyDetailsController",
+            data: {task: "enableRegistrationForNewSem", enable: checked}
+        }).done(function (data) {
+            $(".loader").removeClass("show").addClass("hide");
+            $("section.details").removeClass("loading");
+            if(data === "success") {
+                if(checked) {
+                    $("#presidentUpdateStatus").html("Regsitration enabled successfully");
+                } else {
+                    $("#presidentUpdateStatus").html("Regsitration disabled successfully");
+                }
+
+                $("#presidentUpdateStatus").addClass("success label");
+                
+            } else {
+                $("#presidentUpdateStatus").html("There was an error updating the data. Contact admin.");
+                $("#presidentUpdateStatus").addClass("alert label");
+            }
+        });
+    }
+
+    function searchStudent(event) {
+        event.preventDefault();
+
+        clearPresSearchError();
+        clearPresSearchdata();
+
+        var sid = $("#presStudentId").val();
+
+        if (sid.length !== 0) {
+            $(".loader").removeClass("hide").addClass("show");
+            $("section.details").addClass("loading");
+            $.ajax({
+                method: "POST",
+                url: "../BatAcademy/FacultyDetailsController",
+                data: {task: "presidentEnSearch", sid: sid}
+            }).done(function (data) {
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
+
+                if (data.studentDetails !== undefined) {
+
+                    var student = data.studentDetails;
+                    $("#presEnStudentId").html(sid);
+                    $("#presEnFirstName").html(student.StudentFirstName);
+                    $("#presEnLastName").html(student.StudentLastName);
+                    $("#presEnCGPA").html(student.CGPA);
+
+                    $("#presEnsearchResults").removeClass("hide").addClass("show");
+
+
+                } else {
+                    showError("Student Id does not exist", "presEnSearchError");
+                    $("#presEnsearchResults").removeClass("show").addClass("hide");
+                }
+
+            });
+
+        } else {
+            showError("Id field is empty", "presEnSearchError");
+            $("#presStudentId").addClass('error');
+        }
+    }
+
+    function deleteStudent(event) {
+
+        event.preventDefault();
+        var studentId = $("#presStudentId").val();
+
+
+        $(".loader").addClass("show").removeClass("hide");
+        $("section.details").addClass("loading");
+        $.ajax({
+            method: "POST",
+            url: "../BatAcademy/FacultyDetailsController",
+            data: {task: "deleteStudent", sid: studentId}
+        }).done(function (data) {
+            $(".loader").removeClass("show").addClass("hide");
+            $("section.details").removeClass("loading");
+            if (data === "success") {
+                $("#presEnsearchResults").removeClass("show").addClass("hide");
+                $("#presEnUpdatedResults").html("Student has been deleted from records");
+                $("#presEnUpdatedResults").addClass("success label");
+            } else {
+                $("#presEnsearchResults").removeClass("show").addClass("hide");
+                $("#presEnUpdatedResults").html("There was an error updating the data. Contact admin.");
+                $("#presEnUpdatedResults").addClass("alert label");
+
+            }
+        });
+
+    }
+
+    function clearPresSearchdata() {
+        $("#presEnStudentId").html("");
+        $("#presEnFirstName").html("");
+        $("#presEnLastName").html("");
+        $("#presEnCGPA").html("");
+        $("#presEnUpdatedResults").html("");
+        $("#presEnUpdatedResults").removeClass("success label alert");
+    }
+
     function getRandomArbitrary(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
-    function clearError() {
+    function clearSearchError() {
+        $("#searchError").empty();
+        $("#searchStudentId").removeClass('error');
+    }
+
+    function clearPresSearchError() {
+        $("#presEnSearchError").empty();
+        $("#presStudentId").removeClass('error');
+    }
+
+    function clearLandingError() {
         $("#error").empty();
         $("#userId").removeClass('error');
         $("#userPasssword").removeClass('error');
@@ -221,6 +438,75 @@ $(function () {
 
     function removeErrorClass() {
         $(this).removeClass('error');
+    }
+
+
+    function signUp(event) {
+        event.preventDefault();
+        clearSignUpError();
+
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
+        var password = $("#password").val();
+        var cpwd = $("#cpwd").val();
+        var phno = $("#phno").val();
+        var gender = $("#batSignUp input[name=gender]:checked").val();
+
+        if(firstName.length === 0){
+            showError("Enter First Name", "errorSignUp");
+            $("#firstName").addClass("error");
+        }
+
+        if(password.length === 0){
+            showError("Enter password", "errorSignUp");
+            $("#password").addClass("error");
+        }
+
+        if(cpwd.length === 0){
+            showError("Enter confirm password", "errorSignUp");
+            $("#cpwd").addClass("error");
+        }
+
+        if (password.length !== 0 && cpwd !== password) {
+            showError("Confirm password doesn't match with password", "errorSignUp");
+            $("#cpwd").addClass("error");
+        }
+
+        if(phno.length === 0){
+            showError("Enter phone number", "errorSignUp");
+            $("#phno").addClass("error");
+        }
+
+        if(firstName.length !== 0 && password.length !== 0 && cpwd === password && phno.length !== 0) {
+            $(".loader").addClass("show").removeClass("hide");
+            $("section.details").addClass("loading");
+            $.ajax({
+                method: "POST",
+                url: "../BatAcademy/signin",
+                data: {task: "signup", firstName: firstName, lastName: lastName, password: password, phno:phno, gender: gender}
+            }).done(function (data) {
+                $(".loader").removeClass("show").addClass("hide");
+                $("section.details").removeClass("loading");
+                if (data !== 0) {
+                    $("#signUpStatus").html("Your student id is: "+ data+". Please use this id next time when you log in.");
+                    $("#signUpStatus").addClass("success label");
+                } else {
+                    $("#signUpStatus").html("There was some error in the request. Please try again later.");
+                    $("#signUpStatus").addClass("alert label");
+                }
+            });
+
+        }
+        
+    }
+
+    function clearSignUpError() {
+        $("#errorSignUp").html("");
+        $("#firstName").removeClass("error");
+        $("#password").removeClass("error");
+        $("#cpwd").removeClass("error");
+        $("#phno").removeClass("error");
+        $("#signUpStatus").removeClass("success label alert");
     }
 
 
