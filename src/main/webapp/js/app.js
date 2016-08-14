@@ -1,5 +1,25 @@
 $(document).foundation();
 
+
+function logOut(event){
+    event.preventDefault();
+
+    $(".loader").removeClass("hide").addClass("show");
+    $("section.details").addClass("loading");
+    $.ajax({
+        method: "POST",
+        url: "../BatAcademy/signin",
+        data: {task: "signout"}
+    })
+    .done(function (data) {
+        $(".loader").removeClass("show").addClass("hide");
+        $("section.details").removeClass("loading");
+        if (data === "success") {
+            window.location = '../BatAcademy/index.html';
+        } 
+    });
+}
+
 $(function () {
 
 
@@ -508,6 +528,5 @@ $(function () {
         $("#phno").removeClass("error");
         $("#signUpStatus").removeClass("success label alert");
     }
-
 
 }());

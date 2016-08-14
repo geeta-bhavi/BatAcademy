@@ -83,6 +83,15 @@ public class SignInServlet extends HttpServlet {
             
             out.write(String.valueOf(id));
             out.close();
+        } else if(task.equals("signout")) {
+            session = request.getSession(false);
+            if(session != null) {
+                session.invalidate();
+            }
+            
+            out.write("success");
+            out.close();
+            
         }
 
     }

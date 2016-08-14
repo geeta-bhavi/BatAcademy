@@ -276,3 +276,14 @@ section.details label.enableRegLabel {
 #errorSignUp {
     color: #FF4500;
 }
+
+/******** Log Out **************/
+#logOut {
+    float: right;
+    color: #fff;
+    font-weight: bold;
+}
+#logOut::after {
+    content: '';
+    clear: both;
+}

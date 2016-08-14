@@ -25,6 +25,7 @@
     <body>
         <section id="facultyDetails" class="details">
             <header class="row">
+                <%@include file="logout.html" %>
                 <div class="large-12 columns large-text-center medium-text-center">
                     <h1>Bat Expert</h1>
                 </div>

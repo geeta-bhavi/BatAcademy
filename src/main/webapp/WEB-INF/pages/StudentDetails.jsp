@@ -26,6 +26,7 @@
     <body>
         <section id="studentDetails" class="details">
             <header class="row">
+                <%@include file="logout.html" %>
                 <div class="large-12 columns large-text-center medium-text-center">
                     <h1>Bat Trainee</h1>
                 </div>
@@ -34,7 +35,7 @@
             <div class="row detailsCont">
                 <div class="infoCont">
                     <div class="large-2 medium-2 columns profilePic">
-                        <img src="images/${student.getStudentId()}.jpg">
+                        <img src="images/${student.getStudentId()}.jpg" onerror="this.onerror=null;this.src='images/default.jpg';">
                     </div>
                     <div class="large-10 medium-10 columns">
                         <ul class="studentDetail">
