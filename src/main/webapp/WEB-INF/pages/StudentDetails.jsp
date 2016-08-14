@@ -45,11 +45,6 @@
                             <li><span class="batLabel">Phone Number:</span><span class="info">${student.getPhno()}</span></li>
                         </ul>
                     </div>
-                    <!-- <div class="large-10 medium-10 columns">
-                         <ul class="logout"> 
-                             <li><span class="glyphicon glyphicon-log-out">Log out</li>
-                         </ul> 
-                     </div> -->
                 </div>
             </div>
 
@@ -103,8 +98,8 @@
                             </div>
                             <div id="servererror" class="hide">Server Error.</div>
                             <div id="selectedCouses" class="hide">
-                                <h4>Selected Courses</h4>
                                 <table class="courseTable" id="selectedCousesTable">
+                                    <caption>Selected Courses</caption>
                                     <tr>
                                         <th>Course Id</th>
                                         <th>Course Name</th>
@@ -122,8 +117,8 @@
                 <c:when test="${showCoursesAlreadyRegister==false && fn:length(selectedCourses) gt 0}">
                     <div class="row coursesCont">
                         <div>
-                            <h4>Selected Courses</h4>
                             <table id="courseList" class="courseTable">
+                                <caption>Selected Courses</caption>
                                 <tr>
                                     <th>Course Id</th>
                                     <th>Course Name</th>
