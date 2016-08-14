@@ -34,9 +34,9 @@ ul {list-style: none;}
 /* Footer */
 footer.mainFooter {
     background: #666;
-    font-size: 0.75rem;
     max-width: 100%;
     padding: 0.625rem 0;
+    font-size: 0.875rem;
 }
 footer.mainFooter ul {
     list-style: none;
@@ -55,8 +55,6 @@ footer.mainFooter .contact i {
 }
 
 footer.mainFooter .about {
-    color: #92999f;
-    font-size: 0.875rem;
     margin: 0 0 1rem 0;
 }
 
@@ -266,6 +264,9 @@ section.details label.enableRegLabel {
     overflow: auto;
     padding-top: 1rem;
     border-top: 1px solid #fff;
+}
+.profilePic {
+    width: 9.375rem;
 }
 
 /********* Sign Up ***************/

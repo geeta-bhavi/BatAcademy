@@ -32,8 +32,8 @@
 
             <div class="row detailsCont">
                 <div class="infoCont">
-                    <div class="large-2 medium-2 columns">
-                        <img id="profilePic" src="images/default.jpg">
+                    <div class="large-2 medium-2 columns profilePic">
+                        <img src="images/${faculty.getFacultyId()}.jpg">
                     </div>
                     <div class="large-4 medium-4 columns">
                         <ul class="facultyDetail">
