@@ -6,30 +6,30 @@
   
   
 	<servlet>
-		<servlet-name>error</servlet-name>
-		<jsp-file>/WEB-INF/pages/HandleError.jsp</jsp-file>
+            <servlet-name>error</servlet-name>
+            <jsp-file>/WEB-INF/pages/HandleError.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>error</servlet-name>
-		<url-pattern>/HandleError</url-pattern>
+            <servlet-name>error</servlet-name>
+            <url-pattern>/HandleError</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>signup</servlet-name>
-		<jsp-file>/WEB-INF/pages/SignUp.jsp</jsp-file>
+            <servlet-name>signup</servlet-name>
+            <jsp-file>/WEB-INF/pages/SignUp.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>signup</servlet-name>
-		<url-pattern>/signup</url-pattern>
+            <servlet-name>signup</servlet-name>
+            <url-pattern>/signup</url-pattern>
 	</servlet-mapping>
 
 	<error-page>
-        <error-code>404</error-code>
-        <location>/HandleError</location>
-    </error-page>
+            <error-code>404</error-code>
+            <location>/HandleError</location>
+        </error-page>
 
-    <error-page>
-        <error-code>500</error-code>
-        <location>/HandleError</location>
-    </error-page>
+        <error-page>
+            <error-code>500</error-code>
+            <location>/HandleError</location>
+        </error-page>
 </web-app>

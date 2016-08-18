@@ -22,12 +22,13 @@ function logOut(event) {
 
 $(function () {
 
+    var quiz;
 
     /* register functions */
     $(window).on("load resize", batHandleLoad);
     $(window).on("open.zf.reveal", batshowQuiz);
     $("#batSignIn").on("submit", batHandleSignIn); /* on sign-in submit of index */
-    $(".batmods").on("click", batSubmitQuiz); /*quiz submission on click of radio buttons */
+    $(".batQ").on("click", batSubmitQuiz); /*quiz submission on click of radio buttons */
     $("#userId").on("keypress", removeErrorClass); /*remove error on sign-in page when user starts typing*/
     $("#userPasssword").on("keypress", removeErrorClass); /*remove error on sign-in page when user starts typing*/
     $(".addCourse").on("click", createCourseList);
@@ -114,26 +115,24 @@ $(function () {
         $(".batmods").removeClass("show").addClass("hide");
         $("#" + id).removeClass("hide").addClass("show");
         $("#" + id + " input[type='radio']").removeAttr("checked");
-        setTimeout(function () {
+        quiz = setTimeout(function () {
             window.location = '../BatAcademy/HandleError';
         }, 20000);
+
     }
 
     function batSubmitQuiz() {
         var id = $(".batmods.show").attr("id");
         var radioValue = $("input[name='" + id + "']:checked").val();
-        if (radioValue) {
-            if (id === "bat1" && radioValue === "3") {
-                window.location = '../BatAcademy/signup';
-            } else if (id === "bat2" && radioValue === "42") {
-                window.location = '../BatAcademy/signup';
-            } else {
-                window.location = '../BatAcademy/HandleError';
-            }
+        if (id === "bat1" && radioValue === "3") {
+            clearTimeout(quiz);
+            $("body").load("../BatAcademy/signup");
+        } else if (id === "bat2" && radioValue === "42") {
+            clearTimeout(quiz);
+            $("body").load("../BatAcademy/signup");
         } else {
             window.location = '../BatAcademy/HandleError';
         }
-
     }
 
     function createCourseList(event) {

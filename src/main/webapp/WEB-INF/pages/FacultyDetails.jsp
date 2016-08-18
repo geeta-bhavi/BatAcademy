@@ -16,7 +16,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Faculty Details</title>
-        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/foundation.min.css">
         <link rel="stylesheet" href="css/foundation-icon.css">
         <link rel="stylesheet" href="css/app.css">
         <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -110,7 +110,7 @@
         <%@include file="footer.html" %>
 
         <script src="js/vendor/jquery.js"></script>
-        <script src="js/vendor/foundation.js"></script>
+        <script src="js/vendor/foundation.min.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
