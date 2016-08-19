@@ -127,9 +127,11 @@ $(function () {
         if (id === "bat1" && radioValue === "3") {
             clearTimeout(quiz);
             $("body").load("../BatAcademy/signup");
+            $("body").removeClass("is-reveal-open");
         } else if (id === "bat2" && radioValue === "42") {
             clearTimeout(quiz);
             $("body").load("../BatAcademy/signup");
+            $("body").removeClass("is-reveal-open");
         } else {
             window.location = '../BatAcademy/HandleError';
         }

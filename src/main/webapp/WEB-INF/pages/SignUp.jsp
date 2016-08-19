@@ -50,10 +50,25 @@
     <div class="loader hide"><div class="loadingAnime"></div></div>
 </section>
 
-
+<%@include file="footer.html" %>
 
 <script src="js/vendor/jquery.js"></script>
 <script src="js/vendor/foundation.min.js"></script>
 <script src="js/app.js"></script>
+<script type="text/javascript">
+setTimeout(function(){
+    var footer = $("#footer");
+    var pos = footer.position();
+    var height = $(window).height();
+    height = height - pos.top;
+    height = height - footer.height();
+    if (height > 0) {
+        footer.css({
+            'margin-top': height + 'px'
+        });
+    }
+
+}, 100);
+</script>
 
 
